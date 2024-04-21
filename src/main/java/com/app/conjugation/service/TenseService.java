@@ -17,11 +17,16 @@ public class TenseService {
 	@Autowired
 	private TenseRepository tenseRepository;
 	
+	public Tense getById(Long id) {
+		return tenseRepository.findById(id).get();
+	}
+	
+	public List<Tense> getByLanguage(Long id) {
+		return tenseRepository.findByLanguageId(id);
+	}
+	
 	public List<Tense> getAll(){
 		return tenseRepository.findAll();
 	}
 	
-	/*
-	 * public String getAll(){ return "coucou"; }
-	 */
 }

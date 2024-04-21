@@ -4,6 +4,8 @@ package com.app.conjugation.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,6 +26,7 @@ public class Language {
 	private String name;
 	
 	@OneToMany(mappedBy = "language")
+	@JsonIgnore
     private List<Tense> tenseList = new ArrayList<>();
 	
 	public Integer getId() {

@@ -1,6 +1,8 @@
 package com.app.conjugation.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,7 +20,7 @@ public class Tense {
 		
 	}
 	
-	public Tense(Integer id, String name, Language language){
+	public Tense(Long id, String name, Language language){
 		this.id = id;
 		this.name = name;
 		this.language = language;
@@ -26,16 +28,15 @@ public class Tense {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	
-	@Column(name="name")
 	private String name;
 	
 	@ManyToOne
     @JoinColumn(name="language_id")
     private Language language;
 	
-	public Integer getId() {
+	public Long getId() {
 		return this.id;
 	}
 	
