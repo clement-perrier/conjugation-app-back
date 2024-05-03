@@ -39,7 +39,7 @@
 	      <artifactId>spring-data-jpa</artifactId>
 	    </dependency>
 		
-		<dependency>
+		<!--<dependency>
 		    <groupId>org.hibernate.orm</groupId>
 		    <artifactId>hibernate-core</artifactId>
 	    </dependency>
@@ -48,7 +48,7 @@
 			<groupId>org.hibernate</groupId> 
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>5.2.1.Final</version>
-		</dependency>
+		</dependency>-->
 		 
 	    <dependency>
 		    <groupId>com.mysql</groupId>

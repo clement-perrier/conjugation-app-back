@@ -9,14 +9,14 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tense")
-public class Tense {
+@Table(name = "verb")
+public class Verb {
 	
-	public Tense() {
+	public Verb() {
 		
 	}
 	
-	public Tense(Long id, String name, Language language){
+	public Verb(Long id, String name, Language language){
 		this.id = id;
 		this.name = name;
 		this.language = language;
