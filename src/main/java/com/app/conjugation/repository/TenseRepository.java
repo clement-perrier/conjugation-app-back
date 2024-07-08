@@ -11,11 +11,13 @@ import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuer
 import org.springframework.stereotype.Repository;
 
 import com.app.conjugation.model.Tense;
+import com.app.conjugation.model.TenseDTO;
 
 @Repository
 public interface TenseRepository extends JpaRepository<Tense, Long> {
 	
-	@Query("select t from Tense t where t.language.id = :id")
-    List<Tense> findByLanguageId(@Param("id") Long id);
+	//	@Query("select t from Tense t where t.language.id = :id")
+	@Query("select new com.app.conjugation.model.TenseDTO(t.id, t.name) from Tense t where t.language.id = :id")
+    List<TenseDTO> findByLanguageId(@Param("id") Long id);
 
 }

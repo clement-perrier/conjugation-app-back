@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.conjugation.model.Tense;
+import com.app.conjugation.model.TenseDTO;
 import com.app.conjugation.service.TenseService;
 
 @RestController
@@ -33,7 +34,7 @@ public class TenseController {
 	}
 	
 	@GetMapping("/list/language-id/{languageId}")
-	public List<Tense> getByLanguage(@PathVariable Long languageId) {
+	public List<TenseDTO> getByLanguage(@PathVariable Long languageId) {
 		return tenseService.getByLanguage(languageId);
 	}
 
