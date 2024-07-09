@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.conjugation.model.Verb;
+import com.app.conjugation.model.VerbDTO;
 import com.app.conjugation.service.VerbService;
 
 @RestController
@@ -33,7 +34,7 @@ public class VerbController {
 	}
 	
 	@GetMapping("/list/language-id/{languageId}")
-	public List<Verb> getByLanguage(@PathVariable Long languageId) {
+	public List<VerbDTO> getByLanguage(@PathVariable Long languageId) {
 		return verbService.getByLanguage(languageId);
 	}
 

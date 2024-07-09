@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.conjugation.model.Verb;
+import com.app.conjugation.model.VerbDTO;
 import com.app.conjugation.repository.VerbRepository;
 
 
@@ -19,7 +20,7 @@ public class VerbService {
 		return verbRepository.findById(id).get();
 	}
 	
-	public List<Verb> getByLanguage(Long id) {
+	public List<VerbDTO> getByLanguage(Long id) {
 		return verbRepository.findByLanguageId(id);
 	}
 	

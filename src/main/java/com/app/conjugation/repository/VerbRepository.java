@@ -12,11 +12,12 @@ import org.springframework.stereotype.Repository;
 
 import com.app.conjugation.model.Tense;
 import com.app.conjugation.model.Verb;
+import com.app.conjugation.model.VerbDTO;
 
 @Repository
 public interface VerbRepository extends JpaRepository<Verb, Long> {
 	
-	@Query("select v from Verb v where v.language.id = :id")
-    List<Verb> findByLanguageId(@Param("id") Long id);
+	@Query("select new com.app.conjugation.model.VerbDTO(v.id, v.name) from Verb v where v.language.id = :id")
+    List<VerbDTO> findByLanguageId(@Param("id") Long id);
 
 }
