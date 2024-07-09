@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.conjugation.model.Verb;
@@ -16,14 +17,12 @@ import com.app.conjugation.model.VerbDTO;
 import com.app.conjugation.service.VerbService;
 
 @RestController
-@RequestMapping("/verb")
 public class VerbController {
 
 	@Autowired
 	private VerbService verbService;
 
-	@CrossOrigin(origins = "http://localhost:3000")
-	@GetMapping("/{id}")
+	@GetMapping("/verb")
 	public ResponseEntity<Verb> getById(@PathVariable Long id) {
 		Verb verb = verbService.getById(id);
 		if(verb != null) {
@@ -33,12 +32,12 @@ public class VerbController {
 		}
 	}
 	
-	@GetMapping("/list/language-id/{languageId}")
-	public List<VerbDTO> getByLanguage(@PathVariable Long languageId) {
+	@GetMapping("/verbs")
+	public List<VerbDTO> getByLanguage(@RequestParam Long languageId) {
 		return verbService.getByLanguage(languageId);
 	}
 
-	@GetMapping("/list/all")
+	@GetMapping("/verbs/all")
 	public List<Verb> getAll() {
 		List<Verb> verbList = verbService.getAll();
 		return verbList;

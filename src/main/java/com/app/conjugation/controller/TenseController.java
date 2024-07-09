@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.conjugation.model.Tense;
@@ -16,15 +17,13 @@ import com.app.conjugation.model.TenseDTO;
 import com.app.conjugation.service.TenseService;
 
 @RestController
-@RequestMapping("/tense")
 public class TenseController {
 
 	@Autowired
 	private TenseService tenseService;
 
-	@CrossOrigin(origins = "http://localhost:3000")
-	@GetMapping("/{id}")
-	public ResponseEntity<Tense> getById(@PathVariable Long id) {
+	@GetMapping("/tense")
+	public ResponseEntity<Tense> getById(@RequestParam Long id) {
 		Tense tense = tenseService.getById(id);
 		if(tense != null) {
 			return new ResponseEntity<>(tense, HttpStatus.OK);
@@ -33,12 +32,12 @@ public class TenseController {
 		}
 	}
 	
-	@GetMapping("/list/language-id/{languageId}")
-	public List<TenseDTO> getByLanguage(@PathVariable Long languageId) {
+	@GetMapping("/tenses")
+	public List<TenseDTO> getByLanguage(@RequestParam Long languageId) {
 		return tenseService.getByLanguage(languageId);
 	}
 
-	@GetMapping("/list/all")
+	@GetMapping("/tenses/all")
 	public List<Tense> getAll() {
 		List<Tense> tenseList = tenseService.getAll();
 		return tenseList;
