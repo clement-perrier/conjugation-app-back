@@ -48,7 +48,4 @@ public class Verb {
 		return this.language;
 	}
 	
-	public void setLanguage(Language newLanguage){
-		this.language = newLanguage;
-	}
 }

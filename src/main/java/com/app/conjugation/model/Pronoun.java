@@ -9,17 +9,18 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tense")
-public class Tense {
+@Table(name = "pronoun")
+public class Pronoun {
 	
-	public Tense() {
+	public Pronoun() {
 		
 	}
 	
-	public Tense(Long id, String name, Language language){
+	public Pronoun(Long id, String name, int order, Language language){
 		this.id = id;
 		this.name = name;
 		this.language = language;
+		this.order = order;
 	}
 	
 	@Id
@@ -27,6 +28,8 @@ public class Tense {
 	private Long id;
 	
 	private String name;
+	
+	private int order;
 	
 	@ManyToOne
     @JoinColumn(name="language_id")
@@ -40,12 +43,11 @@ public class Tense {
 		return this.name;
 	}
 	
-	public void setName(String newName){
-		this.name = newName;
+	public int getOrder() {
+		return this.order;
 	}
 
 	public Language getLanguage() {
 		return this.language;
 	}
-	
 }
