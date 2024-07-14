@@ -16,11 +16,11 @@ public class VerbService {
 	@Autowired
 	private VerbRepository verbRepository;
 	
-	public Verb getById(Long id) {
+	public Verb getById(Integer id) {
 		return verbRepository.findById(id).get();
 	}
 	
-	public List<VerbDTO> getByLanguage(Long id) {
+	public List<VerbDTO> getByLanguage(Integer id) {
 		return verbRepository.findByLanguageId(id);
 	}
 	

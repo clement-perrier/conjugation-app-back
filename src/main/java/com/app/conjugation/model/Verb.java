@@ -16,7 +16,7 @@ public class Verb {
 		
 	}
 	
-	public Verb(Long id, String name, Language language){
+	public Verb(Integer id, String name, Language language){
 		this.id = id;
 		this.name = name;
 		this.language = language;
@@ -24,7 +24,7 @@ public class Verb {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private int id;
 	
 	private String name;
 	
@@ -32,7 +32,7 @@ public class Verb {
     @JoinColumn(name="language_id")
     private Language language;
 	
-	public Long getId() {
+	public Integer getId() {
 		return this.id;
 	}
 	

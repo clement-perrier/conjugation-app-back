@@ -16,7 +16,7 @@ public class Tense {
 		
 	}
 	
-	public Tense(Long id, String name, Language language){
+	public Tense(Integer id, String name, Language language){
 		this.id = id;
 		this.name = name;
 		this.language = language;
@@ -24,7 +24,7 @@ public class Tense {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 	
 	private String name;
 	
@@ -32,7 +32,7 @@ public class Tense {
     @JoinColumn(name="language_id")
     private Language language;
 	
-	public Long getId() {
+	public Integer getId() {
 		return this.id;
 	}
 	

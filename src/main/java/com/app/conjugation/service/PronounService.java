@@ -15,11 +15,11 @@ public class PronounService {
 	@Autowired
 	private PronounRepository pronounRepository;
 	
-	public Pronoun getById(Long id) {
+	public Pronoun getById(Integer id) {
 		return pronounRepository.findById(id).get();
 	}
 	
-	public List<PronounDTO> getByLanguage(Long id) {
+	public List<PronounDTO> getByLanguage(Integer id) {
 		return pronounRepository.findByLanguageId(id);
 	}
 	

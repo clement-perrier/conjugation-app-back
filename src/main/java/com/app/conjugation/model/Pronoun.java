@@ -16,7 +16,7 @@ public class Pronoun {
 		
 	}
 	
-	public Pronoun(Long id, String name, int order, Language language){
+	public Pronoun(Integer id, String name, int order, Language language){
 		this.id = id;
 		this.name = name;
 		this.language = language;
@@ -25,7 +25,7 @@ public class Pronoun {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 	
 	private String name;
 	
@@ -35,7 +35,7 @@ public class Pronoun {
     @JoinColumn(name="language_id")
     private Language language;
 	
-	public Long getId() {
+	public Integer getId() {
 		return this.id;
 	}
 	

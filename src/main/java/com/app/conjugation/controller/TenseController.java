@@ -20,7 +20,7 @@ public class TenseController {
 	private TenseService tenseService;
 
 	@GetMapping("/tense")
-	public ResponseEntity<Tense> getById(@RequestParam Long id) {
+	public ResponseEntity<Tense> getById(@RequestParam Integer id) {
 		Tense tense = tenseService.getById(id);
 		if(tense != null) {
 			return new ResponseEntity<>(tense, HttpStatus.OK);
@@ -30,7 +30,7 @@ public class TenseController {
 	}
 	
 	@GetMapping("/tenses")
-	public List<TenseDTO> getByLanguage(@RequestParam Long languageId) {
+	public List<TenseDTO> getByLanguage(@RequestParam Integer languageId) {
 		return tenseService.getByLanguage(languageId);
 	}
 

@@ -11,10 +11,10 @@ import com.app.conjugation.model.Pronoun;
 import com.app.conjugation.model.PronounDTO;
 
 @Repository
-public interface PronounRepository extends JpaRepository<Pronoun, Long> {
+public interface PronounRepository extends JpaRepository<Pronoun, Integer> {
 	
 	//	@Query("select t from Tense t where t.language.id = :id")
 	@Query("select new com.app.conjugation.model.PronounDTO(p.id, p.name, p.order) from Pronoun p where p.language.id = :id")
-    List<PronounDTO> findByLanguageId(@Param("id") Long id);
+    List<PronounDTO> findByLanguageId(@Param("id") Integer id);
 
 }

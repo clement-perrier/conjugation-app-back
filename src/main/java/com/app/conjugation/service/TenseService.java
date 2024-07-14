@@ -15,11 +15,11 @@ public class TenseService {
 	@Autowired
 	private TenseRepository tenseRepository;
 	
-	public Tense getById(Long id) {
+	public Tense getById(Integer id) {
 		return tenseRepository.findById(id).get();
 	}
 	
-	public List<TenseDTO> getByLanguage(Long id) {
+	public List<TenseDTO> getByLanguage(Integer id) {
 		return tenseRepository.findByLanguageId(id);
 	}
 	

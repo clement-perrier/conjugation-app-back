@@ -2,21 +2,24 @@ package com.app.conjugation.model;
 
 import jakarta.persistence.Id;
 
-public class VerbDTO {
+public class ConjugationDTO {
 	
-	public VerbDTO() {
+	public ConjugationDTO() {
 		
 	}
 	
-	public VerbDTO(Integer id, String name){
+	public ConjugationDTO(Integer id, String name){
 		this.id = id;
 		this.name = name;
+//		this.pronounName = pronounName;
 	}
 	
 	@Id
 	private Integer id;
 	
 	private String name;
+	
+//	private String pronounName;
 
 	public Integer getId() {
 		return this.id;
@@ -25,5 +28,9 @@ public class VerbDTO {
 	public String getName() {
 		return this.name;
 	}
+	
+//	public String getPronounName() {
+//		return this.pronounName;
+//	}
 
 }

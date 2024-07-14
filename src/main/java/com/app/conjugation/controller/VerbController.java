@@ -21,7 +21,7 @@ public class VerbController {
 	private VerbService verbService;
 
 	@GetMapping("/verb")
-	public ResponseEntity<Verb> getById(@PathVariable Long id) {
+	public ResponseEntity<Verb> getById(@PathVariable Integer id) {
 		Verb verb = verbService.getById(id);
 		if(verb != null) {
 			return new ResponseEntity<>(verb, HttpStatus.OK);
@@ -31,7 +31,7 @@ public class VerbController {
 	}
 	
 	@GetMapping("/verbs")
-	public List<VerbDTO> getByLanguage(@RequestParam Long languageId) {
+	public List<VerbDTO> getByLanguage(@RequestParam Integer languageId) {
 		return verbService.getByLanguage(languageId);
 	}
 

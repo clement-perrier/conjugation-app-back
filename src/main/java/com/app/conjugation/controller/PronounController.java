@@ -17,7 +17,7 @@ public class PronounController {
 	private PronounService pronounService;
 	
 	@GetMapping("/pronouns")
-	public List<PronounDTO> getByLanguage(@RequestParam Long languageId) {
+	public List<PronounDTO> getByLanguage(@RequestParam Integer languageId) {
 		return pronounService.getByLanguage(languageId);
 	}
 

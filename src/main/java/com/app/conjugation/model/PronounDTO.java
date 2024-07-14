@@ -8,20 +8,20 @@ public class PronounDTO {
 		
 	}
 	
-	public PronounDTO(Long id, String name, int order){
+	public PronounDTO(Integer id, String name, int order){
 		this.id = id;
 		this.name = name;
 		this.order = order;
 	}
 	
 	@Id
-	private Long id;
+	private Integer id;
 	
 	private String name;
 	
 	private int order;
 
-	public Long getId() {
+	public Integer getId() {
 		return this.id;
 	}
 	

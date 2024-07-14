@@ -8,17 +8,17 @@ public class TenseDTO {
 		
 	}
 	
-	public TenseDTO(Long id, String name){
+	public TenseDTO(Integer id, String name){
 		this.id = id;
 		this.name = name;
 	}
 	
 	@Id
-	private Long id;
+	private Integer id;
 	
 	private String name;
 
-	public Long getId() {
+	public Integer getId() {
 		return this.id;
 	}
 	
