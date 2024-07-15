@@ -8,28 +8,34 @@ public class TableDTO {
 		
 	}
 	
-	public TableDTO(String tenseName, String verbName, List<ConjugationDTO> conjugationList){
-		this.setTenseName(tenseName);
-		this.setVerbName(verbName);
-		this.setConjugationList(conjugationList);
+	public TableDTO(TenseDTO tense, VerbDTO verb, List<ConjugationDTO> conjugationList) {
+		this.tense = tense;
+		this.verb = verb;
+		this.conjugationList = conjugationList;
 	}
 
-	public String getTenseName() {
-		return tenseName;
+	private TenseDTO tense;
+	
+	private VerbDTO verb;
+	
+	private List<ConjugationDTO> conjugationList;
+
+	public TenseDTO getTense() {
+		return tense;
 	}
 
-	public void setTenseName(String tenseName) {
-		this.tenseName = tenseName;
+	public void setTense(TenseDTO tense) {
+		this.tense = tense;
 	}
 
-	public String getVerbName() {
-		return verbName;
+	public VerbDTO getVerb() {
+		return verb;
 	}
 
-	public void setVerbName(String verbName) {
-		this.verbName = verbName;
+	public void setVerb(VerbDTO verb) {
+		this.verb = verb;
 	}
-
+	
 	public List<ConjugationDTO> getConjugationList() {
 		return conjugationList;
 	}
@@ -37,12 +43,5 @@ public class TableDTO {
 	public void setConjugationList(List<ConjugationDTO> conjugationList) {
 		this.conjugationList = conjugationList;
 	}
-
-	private String tenseName;
-	
-	private String verbName;
-	
-	private List<ConjugationDTO> conjugationList;
-	
 	
 }
