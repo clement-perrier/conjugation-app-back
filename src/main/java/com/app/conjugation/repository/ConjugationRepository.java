@@ -8,7 +8,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.app.conjugation.model.Conjugation;
-import com.app.conjugation.model.TableDTO;
 
 @Repository
 public interface ConjugationRepository extends JpaRepository<Conjugation, Integer> {

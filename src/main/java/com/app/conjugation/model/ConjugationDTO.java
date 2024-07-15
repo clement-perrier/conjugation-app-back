@@ -8,10 +8,10 @@ public class ConjugationDTO {
 		
 	}
 	
-	public ConjugationDTO(Integer id, String name){
+	public ConjugationDTO(Integer id, String name, String pronounName){
 		this.id = id;
 		this.name = name;
-//		this.pronounName = pronounName;
+		this.pronounName = pronounName;
 	}
 	
 	@Id
@@ -19,7 +19,7 @@ public class ConjugationDTO {
 	
 	private String name;
 	
-//	private String pronounName;
+	private String pronounName;
 
 	public Integer getId() {
 		return this.id;
@@ -29,8 +29,8 @@ public class ConjugationDTO {
 		return this.name;
 	}
 	
-//	public String getPronounName() {
-//		return this.pronounName;
-//	}
+	public String getPronounName() {
+		return this.pronounName;
+	}
 
 }

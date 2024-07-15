@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.conjugation.model.Conjugation;
-import com.app.conjugation.model.TableDTO;
 import com.app.conjugation.service.ConjugationService;
 
 @RestController
@@ -25,11 +24,6 @@ public class ConjugationController {
 	@GetMapping("/conjugations/all")
 	public List<Conjugation> getAll() {
 		return conjugationService.getAll();
-	}
-	
-	@GetMapping("/conjugations/table")
-	public List<TableDTO> getByLanguageGroupByTable(@RequestParam Integer languageId) {
-		return conjugationService.getByLanguageGroupByTable(languageId);
 	}
 
 }
