@@ -19,7 +19,7 @@ public class TableService {
 	@Autowired
 	private ConjugationRepository conjugationRepository;
 	
-	public List<TableDTO> getByLanguageGroupByTable(Integer languageId) {
+	public List<TableDTO> getByLanguage(Integer languageId) {
 		
         // Flat list of all conjugations for one language
         List<Conjugation> conjugationList = conjugationRepository.findByLanguageId(languageId);
@@ -53,7 +53,12 @@ public class TableService {
                 currentTable = createTable(conjugation);
             }
         	// Adding the iterated conjugation to the current conjugation list
-            currentConjugationList.add(new ConjugationDTO(conjugation.getId(), conjugation.getLabel(), conjugation.getPronoun().getName()));
+            currentConjugationList.add(new ConjugationDTO(
+            							conjugation.getId(), 
+            							conjugation.getLabel(), 
+            							conjugation.getPronoun().getName(),
+            							conjugation.getTense().getName(),
+            							conjugation.getVerb().getName()));
         }
         
         // Add the last table

@@ -18,7 +18,7 @@ public class TableController {
 	
 	@GetMapping("/tables")
 	public List<TableDTO> getByLanguageGroupByTable(@RequestParam Integer languageId) {
-		return tableService.getByLanguageGroupByTable(languageId);
+		return tableService.getByLanguage(languageId);
 	}
 
 }
