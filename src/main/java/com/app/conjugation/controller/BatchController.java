@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.app.conjugation.model.Batch;
 import com.app.conjugation.model.BatchDTO;
-import com.app.conjugation.model.VerbDTO;
 import com.app.conjugation.service.BatchService;
 
 @RestController

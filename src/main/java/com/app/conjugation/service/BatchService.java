@@ -1,6 +1,7 @@
 package com.app.conjugation.service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -37,10 +38,14 @@ public class BatchService {
 		
 		// Group by batch
         Map<Batch, List<BatchConjugation>> batchMap = batchConjugationListRepo.stream().collect(Collectors.groupingBy(BatchConjugation::getBatch));
+        
+        List<Map.Entry<Batch, List<BatchConjugation>>> sortedBatchEntries = batchMap.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey(Comparator.comparing(Batch::getReviewingDate)))
+                .collect(Collectors.toList());
 
         List<BatchDTO> batchDTOList = new ArrayList<BatchDTO>();
         
-        for (Map.Entry<Batch, List<BatchConjugation>> entry : batchMap.entrySet()) {
+        for (Map.Entry<Batch, List<BatchConjugation>> entry : sortedBatchEntries) {
         	
         	Batch batch = entry.getKey();
             List<BatchConjugation> batchConjugationList = entry.getValue();
