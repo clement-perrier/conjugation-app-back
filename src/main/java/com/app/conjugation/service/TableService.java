@@ -23,7 +23,14 @@ public class TableService {
 		
         // Flat list of all conjugations for one language
         List<Conjugation> conjugationList = conjugationRepository.findByLanguageId(languageId);
-    	// Result => list of tables
+        
+        return getTableListFromConjugationList(conjugationList);
+    	
+    }
+	
+	public List<TableDTO> getTableListFromConjugationList(List<Conjugation> conjugationList) {
+		
+		// Result => list of tables
         List<TableDTO> tableList = new ArrayList<>();
 
         if (conjugationList.isEmpty()) {
@@ -39,7 +46,7 @@ public class TableService {
             Integer tenseId = conjugation.getTense().getId();
             Integer verbId = conjugation.getVerb().getId();
 
-            // In current iteration is new table
+            // Current iteration is new table
             if (!tenseId.equals(currentTenseId) || !verbId.equals(currentVerbId)) {
                 if (!currentConjugationList.isEmpty()) {
             		// Adding the previous table to the result
@@ -67,7 +74,8 @@ public class TableService {
         }
 
         return tableList;
-    }
+		
+	}
 
     private TableDTO createTable(Conjugation conjugation) {
         TableDTO table = new TableDTO();
