@@ -1,7 +1,5 @@
 package com.app.conjugation.model;
 
-import jakarta.persistence.Id;
-
 public class PronounDTO {
 	
 	public PronounDTO() {
@@ -13,8 +11,7 @@ public class PronounDTO {
 		this.name = name;
 		this.order = order;
 	}
-	
-	@Id
+
 	private Integer id;
 	
 	private String name;

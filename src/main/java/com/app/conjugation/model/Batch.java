@@ -24,7 +24,7 @@ public class Batch {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	
 	private Integer dayNumber;
 	

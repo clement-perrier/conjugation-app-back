@@ -1,7 +1,5 @@
 package com.app.conjugation.model;
 
-import jakarta.persistence.Id;
-
 public class ConjugationDTO {
 	
 	public ConjugationDTO() {
@@ -16,7 +14,6 @@ public class ConjugationDTO {
 		this.verbName = verbName;
 	}
 	
-	@Id
 	private Integer id;
 	
 	private String name;

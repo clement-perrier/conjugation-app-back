@@ -4,10 +4,6 @@ package com.app.conjugation.model;
 import java.util.Date;
 import java.util.List;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
 public class BatchDTO {
 	
 	public BatchDTO() {
@@ -15,21 +11,23 @@ public class BatchDTO {
 	}
 	
 	public BatchDTO(Integer id, Integer dayNumber, Date reviewingDate, List<TableDTO> tableList){
-		this.id = id;
+		this.setId(id);
 		this.setDayNumber(dayNumber);
 		this.setReviewingDate(reviewingDate);
 		this.setTableList(tableList);
 	}
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	
 	private Integer dayNumber;
 	
 	private Date reviewingDate;
 	
 	private List<TableDTO> tableList;
+	
+	public Integer getId() {
+        return id;
+    }
 	
 	public void setId(Integer id) {
 		this.id = id;
