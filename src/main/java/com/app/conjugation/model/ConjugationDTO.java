@@ -6,10 +6,10 @@ public class ConjugationDTO {
 		
 	}
 	
-	public ConjugationDTO(Integer id, String name, String pronounName, String tenseName, String verbName){
+	public ConjugationDTO(Integer id, String name, PronounDTO pronoun, String tenseName, String verbName){
 		this.id = id;
 		this.name = name;
-		this.pronounName = pronounName;
+		this.pronoun = pronoun;
 		this.tenseName = tenseName;
 		this.verbName = verbName;
 	}
@@ -18,7 +18,7 @@ public class ConjugationDTO {
 	
 	private String name;
 	
-	private String pronounName;
+	private PronounDTO pronoun;
 	
 	private String tenseName;
 	
@@ -32,8 +32,8 @@ public class ConjugationDTO {
 		return this.name;
 	}
 	
-	public String getPronounName() {
-		return this.pronounName;
+	public PronounDTO getPronoun() {
+		return this.pronoun;
 	}
 	
 	public String getTenseName() {

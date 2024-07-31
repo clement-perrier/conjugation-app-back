@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.app.conjugation.model.Conjugation;
 import com.app.conjugation.model.ConjugationDTO;
+import com.app.conjugation.model.Pronoun;
+import com.app.conjugation.model.PronounDTO;
 import com.app.conjugation.model.TableDTO;
 import com.app.conjugation.model.TenseDTO;
 import com.app.conjugation.model.VerbDTO;
@@ -60,10 +62,11 @@ public class TableService {
                 currentTable = createTable(conjugation);
             }
         	// Adding the iterated conjugation to the current conjugation list
-            currentConjugationList.add(new ConjugationDTO(
+            Pronoun pronoun = conjugation.getPronoun();
+;            currentConjugationList.add(new ConjugationDTO(
             							conjugation.getId(), 
             							conjugation.getLabel(), 
-            							conjugation.getPronoun().getName(),
+            							new PronounDTO(pronoun.getId(), pronoun.getName(), pronoun.getOrder()),
             							conjugation.getTense().getName(),
             							conjugation.getVerb().getName()));
         }

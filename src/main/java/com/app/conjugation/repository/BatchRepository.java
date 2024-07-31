@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.app.conjugation.model.Batch;
@@ -16,8 +17,9 @@ public interface BatchRepository extends JpaRepository<Batch, Integer> {
 	List<Batch> findAll();
 	
 	@Query("select b "
-			+ "from Batch b")
-	List<Object> findByUserAndLanguage();
+			+ "from Batch b "
+			+ "where b.language.id = :languageId")
+	List<Batch> findByUserAndLanguage(@Param("languageId") Integer languageId);
 	
 //	@Query(value = "SELECT b.reviewing_date AS reviewingDate, b.day_number AS dayNumber, bc.batch_id AS batchId, "
 //            + "JSON_ARRAYAGG(JSON_OBJECT('id', c.id, 'label', c.label, 'pronoun', p.name)) AS conjugationList "

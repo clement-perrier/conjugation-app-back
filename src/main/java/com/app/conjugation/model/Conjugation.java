@@ -51,22 +51,42 @@ public class Conjugation {
 		return this.id;
 	}
 	
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
 	public String getLabel() {
 		return this.label;
+	}
+	
+	public void setLabel(String label) {
+		this.label = label;
 	}
 
 	public Tense getTense() {
 		return this.tense;
 	}
 	
+	public void setTense(Tense tense) {
+		this.tense = tense;
+	}
+	
 	public Verb getVerb() {
 		return this.verb;
+	}
+	
+	public void setVerb(Verb verb) {
+		this.verb = verb;
 	}
 	
 	public Pronoun getPronoun() {
 		return this.pronoun;
 	}
-
+	
+	public void setPronoun(Pronoun pronoun) {
+		this.pronoun = pronoun;
+	}
+	
 	public Language getLanguage() {
 		return this.language;
 	}

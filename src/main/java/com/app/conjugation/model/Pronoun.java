@@ -43,8 +43,16 @@ public class Pronoun {
 		return this.name;
 	}
 	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 	public int getOrder() {
 		return this.order;
+	}
+	
+	public int setOrder(int order) {
+		return this.order = order;
 	}
 
 	public Language getLanguage() {
