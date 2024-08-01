@@ -16,7 +16,7 @@ public class Verb {
 		
 	}
 	
-	public Verb(Integer id, String name, Language language){
+	public Verb(Integer id, String name, LearningLanguage language){
 		this.id = id;
 		this.name = name;
 		this.language = language;
@@ -30,7 +30,7 @@ public class Verb {
 	
 	@ManyToOne
     @JoinColumn(name="language_id")
-    private Language language;
+    private LearningLanguage language;
 	
 	public Integer getId() {
 		return this.id;
@@ -44,7 +44,7 @@ public class Verb {
 		this.name = newName;
 	}
 
-	public Language getLanguage() {
+	public LearningLanguage getLanguage() {
 		return this.language;
 	}
 	

@@ -40,9 +40,9 @@ public class Batch {
 	private Date reviewingDate;
 	
 	@ManyToOne
-    @JoinColumn(name="language_id")
-	private Language language;
-	
+    @JoinColumn(name="user_learning_language_id")
+	private UserLearningLanguage userLearningLanguage;
+
 	@OneToMany(mappedBy = "batch")
 	private List<BatchConjugation> batchConjugationList;
 
@@ -66,14 +66,14 @@ public class Batch {
 		this.reviewingDate = reviewingDate;
 	}
 	
-	public Language getLanguage() {
-		return language;
+	public UserLearningLanguage getUserLearningLanguage() {
+		return userLearningLanguage;
 	}
 
-	public void setLanguage(Language language) {
-		this.language = language;
+	public void setUserLearningLanguage(UserLearningLanguage userLearningLanguage) {
+		this.userLearningLanguage = userLearningLanguage;
 	}
-
+	
 	public List<BatchConjugation> getBatchConjugationList() {
 		return batchConjugationList;
 	}

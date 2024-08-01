@@ -16,10 +16,9 @@ public class Conjugation {
 		
 	}
 	
-	public Conjugation(Integer id, String label, Tense tense, Verb verb, Pronoun pronoun, Language language){
+	public Conjugation(Integer id, String label, Tense tense, Verb verb, Pronoun pronoun){
 		this.id = id;
 		this.label = label;
-		this.language = language;
 		this.tense = tense;
 		this.verb = verb;
 		this.pronoun = pronoun;
@@ -42,10 +41,6 @@ public class Conjugation {
 	@ManyToOne
     @JoinColumn(name="pronoun_id")
     private Pronoun pronoun;
-	
-	@ManyToOne
-    @JoinColumn(name="language_id")
-    private Language language;
 	
 	public Integer getId() {
 		return this.id;
@@ -85,10 +80,6 @@ public class Conjugation {
 	
 	public void setPronoun(Pronoun pronoun) {
 		this.pronoun = pronoun;
-	}
-	
-	public Language getLanguage() {
-		return this.language;
 	}
 	
 }

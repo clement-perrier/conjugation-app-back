@@ -18,8 +18,8 @@ public interface BatchRepository extends JpaRepository<Batch, Integer> {
 	
 	@Query("select b "
 			+ "from Batch b "
-			+ "where b.language.id = :languageId")
-	List<Batch> findByUserAndLanguage(@Param("languageId") Integer languageId);
+			+ "where b.userLearningLanguage.id = :languageId")
+	List<Batch> findByUserAndLanguage(@Param("languageId") Integer anguageId);
 	
 //	@Query(value = "SELECT b.reviewing_date AS reviewingDate, b.day_number AS dayNumber, bc.batch_id AS batchId, "
 //            + "JSON_ARRAYAGG(JSON_OBJECT('id', c.id, 'label', c.label, 'pronoun', p.name)) AS conjugationList "

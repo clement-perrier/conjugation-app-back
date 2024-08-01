@@ -13,8 +13,9 @@ import com.app.conjugation.model.Conjugation;
 public interface ConjugationRepository extends JpaRepository<Conjugation, Integer> {
 
 	@Query("select c "
-			+ "from Conjugation c " 
-			+ "where c.language.id = :languageId "
+			+ "from Conjugation c "
+			+ "join c.tense t "
+			+ "where t.language.id = :languageId "
 			+ "ORDER BY c.tense.id, c.verb.id, c.pronoun.id")
 	List<Conjugation> findByLanguageId(@Param("languageId") Integer languageId);
 	

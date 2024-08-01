@@ -16,11 +16,11 @@ public interface BatchConjugationRepository extends JpaRepository<BatchConjugati
 			+ "from BatchConjugation bc")
 	List<BatchConjugation> findAll();
 	
-	@Query("select bc "
-			+ "from BatchConjugation bc "
-			+ "where bc.conjugation.language.id = :languageId "
-			+ "ORDER BY bc.batch.reviewingDate, bc.batch.dayNumber")
-	List<BatchConjugation> findByUserAndLanguage(@Param("languageId") Integer languageId);
+//	@Query("select bc "
+//			+ "from BatchConjugation bc "
+//			+ "where bc.conjugation.language.id = :languageId "
+//			+ "ORDER BY bc.batch.reviewingDate, bc.batch.dayNumber")
+//	List<BatchConjugation> findByUserAndLanguage(@Param("languageId") Integer languageId);
 	
 //	@Query(value = "SELECT b.reviewing_date AS reviewingDate, b.day_number AS dayNumber, bc.batch_id AS batchId, "
 //            + "JSON_ARRAYAGG(JSON_OBJECT('id', c.id, 'label', c.label, 'pronoun', p.name)) AS conjugationList "

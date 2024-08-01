@@ -25,7 +25,7 @@ public class BatchController {
 		return batchService.getAll();
 	}
 	
-	@GetMapping("/batchs/byUserAndLanguage")
+	@GetMapping("/batchesByUserAndLanguage")
 	public List<BatchDTO> getByUserAndLanguage(@RequestParam Integer languageId) {
 		return batchService.getByUserAndLanguage(languageId);
 	}

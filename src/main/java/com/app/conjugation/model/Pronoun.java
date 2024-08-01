@@ -16,7 +16,7 @@ public class Pronoun {
 		
 	}
 	
-	public Pronoun(Integer id, String name, int order, Language language){
+	public Pronoun(Integer id, String name, int order, LearningLanguage language){
 		this.id = id;
 		this.name = name;
 		this.language = language;
@@ -33,7 +33,7 @@ public class Pronoun {
 	
 	@ManyToOne
     @JoinColumn(name="language_id")
-    private Language language;
+    private LearningLanguage language;
 	
 	public Integer getId() {
 		return this.id;
@@ -55,7 +55,7 @@ public class Pronoun {
 		return this.order = order;
 	}
 
-	public Language getLanguage() {
+	public LearningLanguage getLanguage() {
 		return this.language;
 	}
 }

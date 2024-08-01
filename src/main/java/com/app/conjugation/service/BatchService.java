@@ -1,9 +1,7 @@
 package com.app.conjugation.service;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,9 +40,9 @@ public class BatchService {
 		return batchRepository.findAll();
 	}
 	
-	public List<BatchDTO> getByUserAndLanguage(Integer languageId){
+	public List<BatchDTO> getByUserAndLanguage(Integer learningLanguageId){
 		
-		List<Batch> batchList = batchRepository.findByUserAndLanguage(languageId);
+		List<Batch> batchList = batchRepository.findByUserAndLanguage(learningLanguageId);
 		
 		List<BatchDTO> batchDTOList = new ArrayList<BatchDTO>();
 		
@@ -62,7 +60,7 @@ public class BatchService {
             batchDTO.setId(batch.getId());
             batchDTO.setDayNumber(batch.getDayNumber());
             batchDTO.setReviewingDate(batch.getReviewingDate());
-            batchDTO.setLanguage(batch.getLanguage());
+//            batchDTO.setLanguage(batch.getLanguage());
             batchDTO.setTableList(tableList);
 
             batchDTOList.add(batchDTO);
@@ -109,7 +107,7 @@ public class BatchService {
         Batch batch = new Batch();
         batch.setDayNumber(batchDTO.getDayNumber());
         batch.setReviewingDate(batchDTO.getReviewingDate());
-        batch.setLanguage(batchDTO.getLanguage());
+//        batch.setLanguage(batchDTO.getLanguage());
         return batch;
     }
 
