@@ -1,6 +1,8 @@
 package com.app.conjugation.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -8,17 +10,17 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user_learning_language")
 public class UserLearningLanguage {
 	
 	public UserLearningLanguage() {
 		
 	}
 	
-	public UserLearningLanguage(Integer id, User user, UserLearningLanguage userLearningLanguage) {
+	public UserLearningLanguage(Integer id, User user, LearningLanguage learningLanguage) {
 		this.setId(id);
 		this.setUser(user);
-		this.setUserLearningLanguage(userLearningLanguage);
+		this.setLearningLanguage(learningLanguage);
 	}
 
 	@Id
@@ -26,11 +28,12 @@ public class UserLearningLanguage {
 
 	@ManyToOne
     @JoinColumn(name="user_id")
+	@JsonIgnore
 	private User user;
 	
     @ManyToOne
     @JoinColumn(name="learning_language_id")
-	private UserLearningLanguage userLearningLanguage;	
+	private LearningLanguage learningLanguage;	
 	
     public Integer getId() {
 		return id;
@@ -48,12 +51,12 @@ public class UserLearningLanguage {
 		this.user = user;
 	}
 
-	public UserLearningLanguage getUserLearningLanguage() {
-		return userLearningLanguage;
+	public LearningLanguage getLearningLanguage() {
+		return learningLanguage;
 	}
 
-	public void setUserLearningLanguage(UserLearningLanguage userLearningLanguage) {
-		this.userLearningLanguage = userLearningLanguage;
+	public void setLearningLanguage(LearningLanguage learningLanguage) {
+		this.learningLanguage = learningLanguage;
 	}
 	
 }

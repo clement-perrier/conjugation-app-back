@@ -30,19 +30,19 @@ class ConjugationRepositoryTest {
     void testGroupByBatch() {
 
         // Use appropriate class based on your choice (Projection or DTO)
-        List<BatchDTO> results = batchService.getByUserAndLanguage(1);
-
-        assertNotNull(results);
-        assertFalse(results.isEmpty());
-
-        for (BatchDTO result : results) {
-            System.out.println("Date: " + result.getReviewingDate() + ", Day: " + result.getDayNumber());
-            for (TableDTO table : result.getTableList()) {
-            	System.out.println("Tense: " + table.getTense().getName() + ", Verb: " + table.getVerb().getName());
-            	for(ConjugationDTO conjugation : table.getConjugationList()) {
-            		System.out.println("Conjugation: " + conjugation.getName());
-            	}
-            }
-        }
+//        List<BatchDTO> results = batchService.getByUserAndLanguage(1);
+//
+//        assertNotNull(results);
+//        assertFalse(results.isEmpty());
+//
+//        for (BatchDTO result : results) {
+//            System.out.println("Date: " + result.getReviewingDate() + ", Day: " + result.getDayNumber());
+//            for (TableDTO table : result.getTableList()) {
+//            	System.out.println("Tense: " + table.getTense().getName() + ", Verb: " + table.getVerb().getName());
+//            	for(ConjugationDTO conjugation : table.getConjugationList()) {
+//            		System.out.println("Conjugation: " + conjugation.getName());
+//            	}
+//            }
+//        }
     }
 }

@@ -66,14 +66,6 @@ public class Batch {
 		this.reviewingDate = reviewingDate;
 	}
 	
-	public UserLearningLanguage getUserLearningLanguage() {
-		return userLearningLanguage;
-	}
-
-	public void setUserLearningLanguage(UserLearningLanguage userLearningLanguage) {
-		this.userLearningLanguage = userLearningLanguage;
-	}
-	
 	public List<BatchConjugation> getBatchConjugationList() {
 		return batchConjugationList;
 	}

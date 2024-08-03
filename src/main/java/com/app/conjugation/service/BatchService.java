@@ -2,6 +2,7 @@ package com.app.conjugation.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +17,13 @@ import com.app.conjugation.model.PronounDTO;
 import com.app.conjugation.model.TableDTO;
 import com.app.conjugation.model.Tense;
 import com.app.conjugation.model.TenseDTO;
+import com.app.conjugation.model.UserLearningLanguage;
 import com.app.conjugation.model.Verb;
 import com.app.conjugation.model.VerbDTO;
 import com.app.conjugation.repository.BatchConjugationRepository;
 import com.app.conjugation.repository.BatchRepository;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -40,9 +43,9 @@ public class BatchService {
 		return batchRepository.findAll();
 	}
 	
-	public List<BatchDTO> getByUserAndLanguage(Integer learningLanguageId){
+	public List<BatchDTO> getByUserAndLanguage(Integer userId, Integer learningLanguageId){
 		
-		List<Batch> batchList = batchRepository.findByUserAndLanguage(learningLanguageId);
+		List<Batch> batchList = batchRepository.findByUserAndLanguage(userId, learningLanguageId);
 		
 		List<BatchDTO> batchDTOList = new ArrayList<BatchDTO>();
 		
@@ -71,6 +74,7 @@ public class BatchService {
 		
 	}
 	
+	@Transactional
 	public Integer saveBatch(BatchDTO batchDTO) {
 		
 		// Inserting Batch record
@@ -103,6 +107,28 @@ public class BatchService {
 		
 	}
 	
+	@Transactional
+	public Integer updateBatch(BatchDTO batchDTO) {
+	    // Fetch existing Batch record
+	    Optional<Batch> existingBatchOptional = batchRepository.findById(batchDTO.getId());
+	    if (!existingBatchOptional.isPresent()) {
+	        throw new EntityNotFoundException("Batch not found with ID: " + batchDTO.getId());
+	    }
+	    
+	    // Get actual batch from optional
+	    Batch existingBatch = existingBatchOptional.get();
+	    
+	    // Update attributes of the existing Batch entity
+	    existingBatch.setDayNumber(batchDTO.getDayNumber());
+	    existingBatch.setReviewingDate(batchDTO.getReviewingDate());
+
+	    // Save updated Batch record
+	    batchRepository.save(existingBatch);
+
+	    return existingBatch.getId();
+	}
+
+	
 	private Batch mapBatchDTOToEntity(BatchDTO batchDTO) {
         Batch batch = new Batch();
         batch.setDayNumber(batchDTO.getDayNumber());
@@ -127,6 +153,12 @@ public class BatchService {
         pronoun.setOrder(pronounDTO.getOrder());
         return pronoun;
     }
+	
+	private UserLearningLanguage mapUserLearningLanguageIdToEntity(Integer id) {
+		UserLearningLanguage userLearningLanguage = new UserLearningLanguage();
+		userLearningLanguage.setUser(null);
+		return userLearningLanguage;
+	}
 	
 	private Verb mapVerbDTOToEntity(VerbDTO verbDTO) {
         Verb verb = new Verb();

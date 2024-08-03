@@ -1,6 +1,5 @@
 package com.app.conjugation.model;
 
-
 import java.util.Date;
 import java.util.List;
 
@@ -23,7 +22,7 @@ public class BatchDTO {
 	
 	private Date reviewingDate;
 	
-//	private Language language;
+	//	private Language language;
 	
 	private List<TableDTO> tableList;
 	

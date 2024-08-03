@@ -5,6 +5,8 @@ import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -16,10 +18,11 @@ public class User {
 		
 	}
 	
-	public User(Integer id, String firstname, String lastname, List<UserLearningLanguage> userLearningLanguageList){
+	public User(Integer id, String firstname, String lastname, LearningLanguage defaultLearningLanguage, List<UserLearningLanguage> userLearningLanguageList){
 		this.id = id;
 		this.setFirstname(firstname);
 		this.setLastname(lastname);
+		this.setDefaultLearningLanguage(defaultLearningLanguage);
 		this.setUserLearningLanguageList(userLearningLanguageList);
 	}
 	
@@ -28,7 +31,11 @@ public class User {
 	
 	private String firstname;
 	
-	private String lastname;	
+	private String lastname;
+	
+	@ManyToOne
+    @JoinColumn(name="default_learning_language_id")
+	private LearningLanguage defaultLearningLanguage;
 	
 	@OneToMany(mappedBy = "user")
 	private List<UserLearningLanguage> userLearningLanguageList;
@@ -55,6 +62,14 @@ public class User {
 
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
+	}
+
+	public LearningLanguage getDefaultLearningLanguage() {
+		return defaultLearningLanguage;
+	}
+
+	public void setDefaultLearningLanguage(LearningLanguage lastSelectedLearningLanguage) {
+		this.defaultLearningLanguage = lastSelectedLearningLanguage;
 	}
 
 	public List<UserLearningLanguage> getUserLearningLanguageList() {

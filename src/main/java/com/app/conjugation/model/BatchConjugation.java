@@ -1,5 +1,7 @@
 package com.app.conjugation.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,6 +30,7 @@ public class BatchConjugation {
 	
 	@ManyToOne
     @JoinColumn(name="batch_id")
+	@JsonIgnore
 	private Batch batch;
 	
 	@ManyToOne
