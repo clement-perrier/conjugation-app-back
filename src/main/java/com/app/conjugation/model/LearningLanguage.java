@@ -18,12 +18,31 @@ public class LearningLanguage {
 	@Column(name="name")
 	private String name;
 	
+	@Column(name="image_name")
+	private String imageName;
+	
 	public Integer getId() {
 		return this.id;
 	}
 	
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
 	public String getName() {
 		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String getImageName() {
+		return imageName;
+	}
+
+	public void setImageName(String imageName) {
+		this.imageName = imageName;
 	}
 
 }
