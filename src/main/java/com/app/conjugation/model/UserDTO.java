@@ -11,11 +11,11 @@ public class UserDTO {
 		
 	}
 	
-	public UserDTO(Integer id, String firstname, String lastname, Integer lastSelectedLearningLanguage, List<LearningLanguage> learningLanguageList){
+	public UserDTO(Integer id, String firstname, String lastname, LearningLanguage defaultLearningLanguage, List<LearningLanguage> learningLanguageList){
 		this.id = id;
 		this.setFirstname(firstname);
 		this.setLastname(lastname);
-		this.setDefaultLearningLanguageId(lastSelectedLearningLanguage);
+		this.setDefaultLearningLanguage(defaultLearningLanguage);
 		this.setLearningLanguageList(learningLanguageList);
 	}
 		
@@ -26,7 +26,7 @@ public class UserDTO {
 	
 	private String lastname;	
 	
-	private Integer defaultLearningLanguageId;
+	private LearningLanguage defaultLearningLanguage;
 	
 	private List<LearningLanguage> learningLanguageList;
 	
@@ -54,12 +54,12 @@ public class UserDTO {
 		this.lastname = lastname;
 	}
 	
-	public Integer getDefaultLearningLanguageId() {
-		return defaultLearningLanguageId;
+	public LearningLanguage getDefaultLearningLanguage() {
+		return defaultLearningLanguage;
 	}
 
-	public void setDefaultLearningLanguageId(Integer defaultLearningLanguageId) {
-		this.defaultLearningLanguageId = defaultLearningLanguageId;
+	public void setDefaultLearningLanguage(LearningLanguage defaultLearningLanguage) {
+		this.defaultLearningLanguage = defaultLearningLanguage;
 	}
 
 	public List<LearningLanguage> getLearningLanguageList() {
