@@ -24,10 +24,11 @@ public class Batch {
 		
 	}
 	
-	public Batch(Integer id, Integer dayNumber, Date reviewingDate){
+	public Batch(Integer id, Integer dayNumber, Date reviewingDate, UserLearningLanguage userLearningLanguage){
 		this.id = id;
 		this.setDayNumber(dayNumber);
 		this.setReviewingDate(reviewingDate);
+		this.setUserLearningLanguage(userLearningLanguage);
 	}
 	
 	@Id
@@ -50,6 +51,10 @@ public class Batch {
 		return this.id;
 	}
 	
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
 	public Integer getDayNumber() {
 		return dayNumber;
 	}
@@ -66,6 +71,15 @@ public class Batch {
 		this.reviewingDate = reviewingDate;
 	}
 	
+	
+	public UserLearningLanguage getUserLearningLanguage() {
+		return userLearningLanguage;
+	}
+
+	public void setUserLearningLanguage(UserLearningLanguage userLearningLanguage) {
+		this.userLearningLanguage = userLearningLanguage;
+	}
+
 	public List<BatchConjugation> getBatchConjugationList() {
 		return batchConjugationList;
 	}

@@ -9,11 +9,12 @@ public class BatchDTO {
 		
 	}
 	
-	public BatchDTO(Integer id, Integer dayNumber, Date reviewingDate, List<TableDTO> tableList){
+	public BatchDTO(Integer id, Integer dayNumber, Date reviewingDate, List<TableDTO> tableList, UserLearningLanguageDTO userLearningLanguageDTO){
 		this.setId(id);
 		this.setDayNumber(dayNumber);
 		this.setReviewingDate(reviewingDate);
 		this.setTableList(tableList);
+		this.setUserLearningLanguage(userLearningLanguageDTO);
 	}
 	
 	private Integer id;
@@ -22,7 +23,7 @@ public class BatchDTO {
 	
 	private Date reviewingDate;
 	
-	//	private Language language;
+	private UserLearningLanguageDTO userLearningLanguageDTO;
 	
 	private List<TableDTO> tableList;
 	
@@ -57,6 +58,15 @@ public class BatchDTO {
 	public void setTableList(List<TableDTO> tableList) {
 		this.tableList = tableList;
 	}
+
+	public UserLearningLanguageDTO getUserLearningLanguage() {
+		return userLearningLanguageDTO;
+	}
+
+	public void setUserLearningLanguage(UserLearningLanguageDTO userLearningLanguageDTO) {
+		this.userLearningLanguageDTO = userLearningLanguageDTO;
+	}
+	
 
 //	public Language getLanguage() {
 //		return language;

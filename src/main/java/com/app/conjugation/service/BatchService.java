@@ -22,6 +22,7 @@ import com.app.conjugation.model.Verb;
 import com.app.conjugation.model.VerbDTO;
 import com.app.conjugation.repository.BatchConjugationRepository;
 import com.app.conjugation.repository.BatchRepository;
+import com.app.conjugation.repository.UserLearningLanguageRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -35,6 +36,9 @@ public class BatchService {
 	
 	@Autowired
 	private BatchConjugationRepository batchConjugationRepository;
+	
+	@Autowired
+	private UserLearningLanguageRepository userLearningLanguageRepository;
 	
 	@Autowired
 	private TableService tableService;
@@ -62,8 +66,7 @@ public class BatchService {
             BatchDTO batchDTO = new BatchDTO();
             batchDTO.setId(batch.getId());
             batchDTO.setDayNumber(batch.getDayNumber());
-            batchDTO.setReviewingDate(batch.getReviewingDate());
-//            batchDTO.setLanguage(batch.getLanguage());
+            batchDTO.setReviewingDate(batch.getReviewingDate());;
             batchDTO.setTableList(tableList);
 
             batchDTOList.add(batchDTO);
@@ -130,11 +133,18 @@ public class BatchService {
 
 	
 	private Batch mapBatchDTOToEntity(BatchDTO batchDTO) {
+		
         Batch batch = new Batch();
         batch.setDayNumber(batchDTO.getDayNumber());
         batch.setReviewingDate(batchDTO.getReviewingDate());
-//        batch.setLanguage(batchDTO.getLanguage());
+        
+        Integer userId = batchDTO.getUserLearningLanguage().getUserId();
+		Integer learningLanguageId = batchDTO.getUserLearningLanguage().getLearningLanguageId();
+		UserLearningLanguage userLearningLanguage = userLearningLanguageRepository.findByUserIdAndLearningLanguageId(userId, learningLanguageId);
+        batch.setUserLearningLanguage(userLearningLanguage);
+        
         return batch;
+        
     }
 
 	private Conjugation mapConjugationDTOToEntity(ConjugationDTO conjugationDTO, TableDTO table) {
