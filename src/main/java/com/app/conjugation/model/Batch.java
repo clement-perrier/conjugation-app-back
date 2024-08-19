@@ -5,6 +5,7 @@ package com.app.conjugation.model;
 import java.util.Date;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -44,7 +45,7 @@ public class Batch {
     @JoinColumn(name="user_learning_language_id")
 	private UserLearningLanguage userLearningLanguage;
 
-	@OneToMany(mappedBy = "batch")
+	@OneToMany(mappedBy = "batch", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<BatchConjugation> batchConjugationList;
 
 	public Integer getId() {

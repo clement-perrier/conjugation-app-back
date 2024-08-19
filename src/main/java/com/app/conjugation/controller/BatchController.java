@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -43,6 +44,12 @@ public class BatchController {
 	public ResponseEntity<Integer> updateBatch(@RequestBody BatchDTO batchDTO) {
 	    Integer updatedBatchId = batchService.updateBatch(batchDTO);
 	    return ResponseEntity.ok(updatedBatchId);
+	}
+	
+	@DeleteMapping("/deleteBatch")
+	public ResponseEntity<Integer> deleteBatch(@RequestParam Integer batchId) {
+	    Integer deletedBatchId = batchService.deleteBatch(batchId);
+	    return ResponseEntity.ok(deletedBatchId);
 	}
 	
 	// Preflight request handling

@@ -131,6 +131,14 @@ public class BatchService {
 	    return existingBatch.getId();
 	}
 
+	public Integer deleteBatch(Integer batchId) {
+		
+		Batch batch = batchRepository.findById(batchId).get();
+		batchRepository.delete(batch);
+		// TODO Auto-generated method stub
+		return batchId;
+	}
+    
 	
 	private Batch mapBatchDTOToEntity(BatchDTO batchDTO) {
 		
@@ -181,5 +189,5 @@ public class BatchService {
         tense.setName(tenseDTO.getName());
         return tense;
     }
-    
+
 }
