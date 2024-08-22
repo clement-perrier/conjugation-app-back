@@ -20,19 +20,19 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-//	@GetMapping("/user")
-//	public UserDTO getById(@RequestParam Integer userId) {
-//		return userService.getById(userId);
-//	}
-//	
 	@GetMapping("/user")
-    public ResponseEntity<User> authenticatedUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        User currentUser = (User) authentication.getPrincipal();
-
-        return ResponseEntity.ok(currentUser);
-    }
+	public UserDTO getById(@RequestParam Integer userId) {
+		return userService.getById(userId);
+	}
+	
+//	@GetMapping("/user")
+//    public ResponseEntity<User> authenticatedUser() {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//
+//        User currentUser = (User) authentication.getPrincipal();
+//
+//        return ResponseEntity.ok(currentUser);
+//    }
 	
 	@PutMapping("/updateUserLearningLanguageList")
 	public ResponseEntity<UserDTO> updateUserLearningLanguageList(@RequestParam Integer userId, @RequestParam Integer learningLanguageId) {

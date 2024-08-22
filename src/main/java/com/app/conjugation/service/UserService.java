@@ -71,8 +71,8 @@ public class UserService {
  		
 		UserDTO userDTO = new UserDTO();
 		userDTO.setId(user.getId());
-		userDTO.setFirstname(user.getFirstname());
-		userDTO.setLastname(user.getLastname());
+		userDTO.setFullname(user.getFullName());
+		userDTO.setEmail(user.getEmail());
 		userDTO.setDefaultLearningLanguage(user.getDefaultLearningLanguage());
 		
 		List<LearningLanguage> learningLanguageList = new ArrayList<LearningLanguage>();
@@ -91,8 +91,8 @@ public class UserService {
  		
  		User user = new User();
  		user.setId(userDTO.getId());
- 		user.setFirstname(userDTO.getFirstname());
- 		user.setLastname(userDTO.getLastname());
+ 		user.setFullName(userDTO.getFullname());
+ 		user.setEmail(userDTO.getEmail());
  		user.setDefaultLearningLanguage(userDTO.getDefaultLearningLanguage());
  		
 		List<UserLearningLanguage> userLearningLanguageList = new ArrayList<UserLearningLanguage>();

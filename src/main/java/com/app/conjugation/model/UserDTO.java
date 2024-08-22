@@ -13,8 +13,8 @@ public class UserDTO {
 	
 	public UserDTO(Integer id, String firstname, String lastname, LearningLanguage defaultLearningLanguage, List<LearningLanguage> learningLanguageList){
 		this.id = id;
-		this.setFirstname(firstname);
-		this.setLastname(lastname);
+		this.setFullname(firstname);
+		this.setEmail(lastname);
 		this.setDefaultLearningLanguage(defaultLearningLanguage);
 		this.setLearningLanguageList(learningLanguageList);
 	}
@@ -22,9 +22,9 @@ public class UserDTO {
 	@Id
 	private Integer id;
 	
-	private String firstname;
+	private String fullname;
 	
-	private String lastname;	
+	private String email;	
 	
 	private LearningLanguage defaultLearningLanguage;
 	
@@ -37,23 +37,23 @@ public class UserDTO {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-	public String getFirstname() {
-		return firstname;
-	}
-
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
-	}
-
-	public String getLastname() {
-		return lastname;
-	}
-
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
-	}
 	
+	public String getFullname() {
+		return fullname;
+	}
+
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public LearningLanguage getDefaultLearningLanguage() {
 		return defaultLearningLanguage;
 	}
