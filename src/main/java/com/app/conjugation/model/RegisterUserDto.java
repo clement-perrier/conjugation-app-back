@@ -6,7 +6,7 @@ public class RegisterUserDto {
     
     private String password;
     
-    private String fullName;
+//    private String fullName;
 
 	public String getEmail() {
 		return email;
@@ -24,13 +24,13 @@ public class RegisterUserDto {
 		this.password = password;
 	}
 
-	public String getFullName() {
-		return fullName;
-	}
-
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
-	}
-    
+//	public String getFullName() {
+//		return fullName;
+//	}
+//
+//	public void setFullName(String fullName) {
+//		this.fullName = fullName;
+//	}
+//    
    
 }

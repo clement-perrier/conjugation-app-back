@@ -53,6 +53,7 @@ public class AuthenticationController {
                    .accessToken(jwtService.generateToken(authenticatedUser))
                    .refreshToken(refreshToken.getToken())
                    .refreshTokenExpiryDate(refreshToken.getExpiryDate().toString())
+                   .userId(authenticatedUser.getId())
                    .build();
 
         } else {
