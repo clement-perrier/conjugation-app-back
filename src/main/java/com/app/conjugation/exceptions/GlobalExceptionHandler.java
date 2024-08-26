@@ -12,6 +12,7 @@ import org.springframework.security.authentication.AccountStatusException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -62,6 +63,13 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponseDTO> handleCustomException(CustomException ex) {
         ErrorResponseDTO errorResponse = new ErrorResponseDTO(ex.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+    
+    @ExceptionHandler(ConflictException.class)
+    public ResponseEntity<ProblemDetail> handleConflictException(ConflictException ex) {
+        ProblemDetail errorDetail = ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, ex.getReason());
+        errorDetail.setProperty("description", "Conflict: " + ex.getReason());
+        return new ResponseEntity<>(errorDetail, HttpStatus.CONFLICT);
     }
 
 }
