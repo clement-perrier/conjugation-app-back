@@ -25,10 +25,8 @@ public class User implements UserDetails {
 		
 	}
 	
-	public User(Integer id, String firstname, String lastname, LearningLanguage defaultLearningLanguage, List<UserLearningLanguage> userLearningLanguageList){
+	public User(Integer id, LearningLanguage defaultLearningLanguage, List<UserLearningLanguage> userLearningLanguageList){
 		this.id = id;
-		this.setFirstname(firstname);
-		this.setLastname(lastname);
 		this.setDefaultLearningLanguage(defaultLearningLanguage);
 		this.setUserLearningLanguageList(userLearningLanguageList);
 	}
@@ -36,12 +34,6 @@ public class User implements UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
-	private String firstname;
-	
-	private String lastname;
-	
-	private String fullName;
 	
     private String email;
 
@@ -60,30 +52,6 @@ public class User implements UserDetails {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public String getFirstname() {
-		return firstname;
-	}
-
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
-	}
-
-	public String getLastname() {
-		return lastname;
-	}
-
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
-	}
-	
-	public String getFullName() {
-		return fullName;
-	}
-
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
 	}
 
 	public LearningLanguage getDefaultLearningLanguage() {

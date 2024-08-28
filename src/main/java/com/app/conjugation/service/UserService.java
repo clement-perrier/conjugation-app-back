@@ -71,7 +71,6 @@ public class UserService {
  		
 		UserDTO userDTO = new UserDTO();
 		userDTO.setId(user.getId());
-		userDTO.setFullname(user.getFullName());
 		userDTO.setEmail(user.getEmail());
 		userDTO.setDefaultLearningLanguage(user.getDefaultLearningLanguage());
 		
@@ -91,7 +90,6 @@ public class UserService {
  		
  		User user = new User();
  		user.setId(userDTO.getId());
- 		user.setFullName(userDTO.getFullname());
  		user.setEmail(userDTO.getEmail());
  		user.setDefaultLearningLanguage(userDTO.getDefaultLearningLanguage());
  		
