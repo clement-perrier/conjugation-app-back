@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import lombok.*;
 
 import com.app.conjugation.model.RefreshToken;
+import com.app.conjugation.model.User;
 import com.app.conjugation.repository.RefreshTokenRepository;
 import com.app.conjugation.repository.UserRepository;
 
@@ -27,12 +28,22 @@ public class RefreshTokenService {
     private long refreshTokenExpiration;
 
     public RefreshToken createRefreshToken(String email){
-        RefreshToken refreshToken = RefreshToken.builder()
-                .user(userRepository.findByEmail(email).get())
-                .token(UUID.randomUUID().toString())
-                .expiryDate(Instant.now().plusMillis(refreshTokenExpiration)) // set expiry of refresh token to 10 minutes - you can configure it application.properties file 
-                .build();
-        return refreshTokenRepository.save(refreshToken);
+    	User user = userRepository.findByEmail(email).get();
+    	RefreshToken existingRefreshToken = refreshTokenRepository.findByUser(user).get();
+    	if(existingRefreshToken != null && existingRefreshToken.getExpiryDate().compareTo(Instant.now())>0) {
+    		return existingRefreshToken;
+    	} else {
+    		if(existingRefreshToken != null) {
+    			refreshTokenRepository.delete(existingRefreshToken);
+    		}
+    		RefreshToken refreshToken = RefreshToken.builder()
+                    .user(user)
+                    .token(UUID.randomUUID().toString())
+                    .expiryDate(Instant.now().plusMillis(refreshTokenExpiration)) // set expiry of refresh token to 10 minutes - you can configure it application.properties file 
+                    .build();
+            return refreshTokenRepository.save(refreshToken);
+    	}
+        
     }
 
 

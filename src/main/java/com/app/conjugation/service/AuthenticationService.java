@@ -1,6 +1,7 @@
 package com.app.conjugation.service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -9,7 +10,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.app.conjugation.model.PasswordResetToken;
 import com.app.conjugation.exceptions.ConflictException;
+import com.app.conjugation.exceptions.UserNotFoundException;
 import com.app.conjugation.model.LoginUserDto;
 import com.app.conjugation.model.RegisterUserDto;
 import com.app.conjugation.model.User;
@@ -61,4 +64,5 @@ public class AuthenticationService {
         return userRepository.findByEmail(input.getEmail())
                 .orElseThrow();
     }
+    
 }

@@ -71,5 +71,12 @@ public class GlobalExceptionHandler {
         errorDetail.setProperty("description", "Conflict: " + ex.getReason());
         return new ResponseEntity<>(errorDetail, HttpStatus.CONFLICT);
     }
+    
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ProblemDetail> handleUserNotFoundException(UserNotFoundException ex) {
+        ProblemDetail errorDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getReason());
+        errorDetail.setProperty("description", "User not found: " + ex.getReason());
+        return new ResponseEntity<>(errorDetail, HttpStatus.CONFLICT);
+    }
 
 }
