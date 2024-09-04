@@ -21,7 +21,7 @@ public class NotificationService {
 	private BatchRepository batchRepository;
 
 //    @Scheduled(cron = "*/10 * * * * *")
-    @Scheduled(cron = "0 30 11 * * *") 
+    @Scheduled(cron = "0 0 19 * * *") 
     public void sendDueNotifications() {
 //        // Fetch due tasks from the database
 //        List<Task> dueTasks = getDueTasks();

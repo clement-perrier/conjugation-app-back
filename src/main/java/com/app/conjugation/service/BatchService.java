@@ -78,7 +78,7 @@ public class BatchService {
 	}
 	
 	@Transactional
-	public Integer saveBatch(BatchDTO batchDTO) {
+	public BatchDTO saveBatch(BatchDTO batchDTO) {
 		
 		// Inserting Batch record
 		Batch newBatch = mapBatchDTOToEntity(batchDTO);
@@ -106,7 +106,9 @@ public class BatchService {
 			
 		}
 		
-		return newBatch.getId();
+		batchDTO.setId(newBatch.getId());
+		
+		return batchDTO;
 		
 	}
 	

@@ -35,9 +35,8 @@ public class BatchController {
 	}
 
 	@PostMapping("/newBatch")
-    public ResponseEntity<Integer> createTense(@RequestBody BatchDTO batch) {
-        Integer savedBatchId = batchService.saveBatch(batch);
-        return ResponseEntity.ok(savedBatchId);
+    public BatchDTO createTense(@RequestBody BatchDTO batch) {
+        return  batchService.saveBatch(batch);
     }
 	
 	@PutMapping("/updateBatch")

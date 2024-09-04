@@ -13,7 +13,7 @@ import com.app.conjugation.model.VerbDTO;
 @Repository
 public interface VerbRepository extends JpaRepository<Verb, Integer> {
 	
-	@Query("select new com.app.conjugation.model.VerbDTO(v.id, v.name) from Verb v where v.language.id = :id")
+	@Query("select new com.app.conjugation.model.VerbDTO(v.id, v.name) from Verb v where v.language.id = :id order by rank")
     List<VerbDTO> findByLanguageId(@Param("id") Integer id);
 
 }

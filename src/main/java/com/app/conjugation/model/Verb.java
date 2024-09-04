@@ -1,5 +1,6 @@
 package com.app.conjugation.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,6 +29,9 @@ public class Verb {
 	
 	private String name;
 	
+	@Column(name = "usage_rank", unique = true)
+	private Integer rank;
+	
 	@ManyToOne
     @JoinColumn(name="language_id")
     private LearningLanguage language;
@@ -47,5 +51,23 @@ public class Verb {
 	public LearningLanguage getLanguage() {
 		return this.language;
 	}
+
+	public Integer getRank() {
+		return rank;
+	}
+
+	public void setRank(Integer rank) {
+		this.rank = rank;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setLanguage(LearningLanguage language) {
+		this.language = language;
+	}
+	
+	
 	
 }
