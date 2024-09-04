@@ -11,10 +11,10 @@ public class UserDTO {
 		
 	}
 	
-	public UserDTO(Integer id, String firstname, String lastname, LearningLanguage defaultLearningLanguage, List<LearningLanguage> learningLanguageList){
+	public UserDTO(Integer id, String email, String deviceToken, LearningLanguage defaultLearningLanguage, List<LearningLanguage> learningLanguageList){
 		this.id = id;
-		this.setFullname(firstname);
-		this.setEmail(lastname);
+		this.setEmail(email);
+		this.setDeviceToken(deviceToken);
 		this.setDefaultLearningLanguage(defaultLearningLanguage);
 		this.setLearningLanguageList(learningLanguageList);
 	}
@@ -22,9 +22,9 @@ public class UserDTO {
 	@Id
 	private Integer id;
 	
-	private String fullname;
+	private String email;
 	
-	private String email;	
+	private String deviceToken;
 	
 	private LearningLanguage defaultLearningLanguage;
 	
@@ -38,12 +38,12 @@ public class UserDTO {
 		this.id = id;
 	}
 	
-	public String getFullname() {
-		return fullname;
+	public String getDeviceToken() {
+		return deviceToken;
 	}
 
-	public void setFullname(String fullname) {
-		this.fullname = fullname;
+	public void setDeviceToken(String fullname) {
+		this.deviceToken = fullname;
 	}
 
 	public String getEmail() {

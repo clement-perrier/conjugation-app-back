@@ -29,12 +29,12 @@ public class RefreshTokenService {
 
     public RefreshToken createRefreshToken(String email){
     	User user = userRepository.findByEmail(email).get();
-    	RefreshToken existingRefreshToken = refreshTokenRepository.findByUser(user).get();
-    	if(existingRefreshToken != null && existingRefreshToken.getExpiryDate().compareTo(Instant.now())>0) {
-    		return existingRefreshToken;
+    	Optional<RefreshToken> optionalExistingRefreshToken = refreshTokenRepository.findByUser(user);
+    	if(optionalExistingRefreshToken.isPresent() && optionalExistingRefreshToken.get().getExpiryDate().compareTo(Instant.now())>0) {
+    		return optionalExistingRefreshToken.get();
     	} else {
-    		if(existingRefreshToken != null) {
-    			refreshTokenRepository.delete(existingRefreshToken);
+    		if(optionalExistingRefreshToken.isPresent()) {
+    			refreshTokenRepository.delete(optionalExistingRefreshToken.get());
     		}
     		RefreshToken refreshToken = RefreshToken.builder()
                     .user(user)

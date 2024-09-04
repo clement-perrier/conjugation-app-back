@@ -38,6 +38,8 @@ public class User implements UserDetails {
     private String email;
 
     private String password;
+    
+    private String deviceToken;
 	
 	@ManyToOne
     @JoinColumn(name="default_learning_language_id")
@@ -114,6 +116,14 @@ public class User implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return true;
+	}
+
+	public String getDeviceToken() {
+		return deviceToken;
+	}
+
+	public void setDeviceToken(String deviceToken) {
+		this.deviceToken = deviceToken;
 	}
 	
 }

@@ -22,6 +22,17 @@ public interface BatchRepository extends JpaRepository<Batch, Integer> {
 			+ "where ull.user.id = :userId and ull.learningLanguage.id = :languageId")
 	List<Batch> findByUserAndLanguage(@Param("userId") Integer userId, @Param("languageId") Integer languageId);
 	
+	@Query("select b "
+			+ "from Batch b "
+			+ "where b.reviewingDate <= current_date "
+			+ "and "
+			+ "b.reviewingDate in "
+			+ "(SELECT min(b2.reviewingDate) "
+			+ "FROM Batch b2 "
+			+ "WHERE b2.reviewingDate <= current_date "
+			+ "GROUP BY b2.userLearningLanguage)")
+	List<Batch> findDueBatches();
+	
 //	@Query(value = "SELECT b.reviewing_date AS reviewingDate, b.day_number AS dayNumber, bc.batch_id AS batchId, "
 //            + "JSON_ARRAYAGG(JSON_OBJECT('id', c.id, 'label', c.label, 'pronoun', p.name)) AS conjugationList "
 //            + "FROM conjugation c "

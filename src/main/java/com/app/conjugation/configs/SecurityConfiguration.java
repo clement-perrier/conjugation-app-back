@@ -46,7 +46,12 @@ public class SecurityConfiguration {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+//                .requiresChannel(channel -> 
+//                channel.anyRequest().requiresSecure())
+//            .authorizeRequests(authorize ->
+//                authorize.anyRequest().permitAll()
+                ;
 
         return http.build();
     }

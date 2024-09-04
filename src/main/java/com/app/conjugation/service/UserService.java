@@ -67,12 +67,28 @@ public class UserService {
 		return mapUserToDTO(user);		
 	}
 	
+	public UserDTO updateDeviceToken(Integer userId, String deviceToken) {
+		
+		// Retrieving the user we want to update
+		User user = userRepository.findById(userId).get();
+		
+		// Setting newe device token
+		user.setDeviceToken(deviceToken);
+		
+		// Updating the user in the DB
+		userRepository.save(user);
+		
+		// Returning the updated User as UserDTO
+		return mapUserToDTO(user);		
+	}
+	
  	private UserDTO mapUserToDTO(User user) {
  		
 		UserDTO userDTO = new UserDTO();
 		userDTO.setId(user.getId());
 		userDTO.setEmail(user.getEmail());
 		userDTO.setDefaultLearningLanguage(user.getDefaultLearningLanguage());
+		userDTO.setDeviceToken(user.getDeviceToken());
 		
 		List<LearningLanguage> learningLanguageList = new ArrayList<LearningLanguage>();
 		

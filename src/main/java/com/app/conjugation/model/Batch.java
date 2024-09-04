@@ -89,4 +89,8 @@ public class Batch {
 		this.batchConjugationList = batchConjugationList;
 	}
 	
+	public User getUser() {
+	return userLearningLanguage.getUser();
+	}
+	
 }

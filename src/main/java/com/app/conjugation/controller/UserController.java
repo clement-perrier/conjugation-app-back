@@ -43,4 +43,9 @@ public class UserController {
 	public ResponseEntity<UserDTO> updateDefaultLearningLanguage(@RequestParam Integer userId, @RequestParam Integer learningLanguageId) {
 		return ResponseEntity.ok(userService.updateDefaultLearningLanguage(userId, learningLanguageId));
 	}
+	
+	@PutMapping("/updateUserDeviceToken")
+	public ResponseEntity<UserDTO> updateUserDeviceToken(@RequestParam Integer userId, @RequestParam String deviceToken) {
+		return ResponseEntity.ok(userService.updateDeviceToken(userId, deviceToken));
+	}
 }
