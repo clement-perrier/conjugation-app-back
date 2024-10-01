@@ -6,12 +6,13 @@ public class ConjugationDTO {
 		
 	}
 	
-	public ConjugationDTO(Integer id, String name, PronounDTO pronoun, String tenseName, String verbName){
+	public ConjugationDTO(Integer id, String name, PronounDTO pronoun, String tenseName, String verbName, Boolean correct){
 		this.id = id;
 		this.name = name;
 		this.pronoun = pronoun;
 		this.tenseName = tenseName;
 		this.verbName = verbName;
+		this.setCorrect(correct);
 	}
 	
 	private Integer id;
@@ -23,6 +24,8 @@ public class ConjugationDTO {
 	private String tenseName;
 	
 	private String verbName;
+	
+	private Boolean correct;
 
 	public Integer getId() {
 		return this.id;
@@ -42,6 +45,14 @@ public class ConjugationDTO {
 	
 	public String getVerbName() {
 		return this.verbName;
+	}
+
+	public Boolean getCorrect() {
+		return correct;
+	}
+
+	public void setCorrect(Boolean correct) {
+		this.correct = correct;
 	}
 
 }

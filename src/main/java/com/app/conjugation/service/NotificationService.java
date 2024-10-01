@@ -1,10 +1,14 @@
 package com.app.conjugation.service;
 
 import com.app.conjugation.model.Batch;
+import com.app.conjugation.model.User;
 import com.app.conjugation.repository.BatchRepository;
+import com.app.conjugation.repository.UserRepository;
 import com.google.firebase.messaging.AndroidConfig;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.Message;
+import com.google.firebase.messaging.MessagingErrorCode;
 import com.google.firebase.messaging.Notification;
 
 import java.util.ArrayList;
@@ -19,33 +23,31 @@ public class NotificationService {
 	
 	@Autowired
 	private BatchRepository batchRepository;
+	
+	@Autowired
+	private UserService userService;
 
 //    @Scheduled(cron = "*/10 * * * * *")
-    @Scheduled(cron = "0 0 19 * * *") 
+    @Scheduled(cron = "0 0 20 * * *") 
     public void sendDueNotifications() {
 //        // Fetch due tasks from the database
 //        List<Task> dueTasks = getDueTasks();
     	   List<Batch> dueBatches = batchRepository.findDueBatches();
     	   for(Batch dueBatch: dueBatches) {
-    		   System.out.println(dueBatch.getUser().getEmail() + " - " + dueBatch.getUser().getId());
-    		   String deviceToken = dueBatch.getUser().getDeviceToken();
+    		   User user = dueBatch.getUser();
+    		   System.out.println(user.getEmail() + " - " + user.getId());
+    		   String deviceToken = user.getDeviceToken();
     		   String learningLanguage = dueBatch.getUserLearningLanguage().getLearningLanguage().getName();
     		   sendNotification(
 				   deviceToken, 
 				   "Reminder: Repetition(s) Due Today", 
-				   "Keep up your progress! Complete your repetitions today to reinforce what you've learned."
+				   "Keep up your progress! Complete your repetitions today to reinforce what you've learned.",
+				   user.getId()
 			   );
     	   }
-    	   
-//
-//        // Iterate over tasks and send notifications
-//        for (Task task : dueTasks) {
-        	String token = "ebgKkmtWQfiJKLOKeEywRH:APA91bGV_6u0L4ls7Us3l8Fy_82fQZT3Y0l6Ee_CMPQ-uWny2I4h-xY0JZI4798YsAAfaCBGT0tuUrgreNAMf5-PXyb00029om0I4U1yOg_lVQ2X_soEb5F7HW8grK2ARFeLzmbivCHi";
-//            sendNotification(token, "Task Due", "Your task is due today!");
-//        }
     }
 
-    private void sendNotification(String deviceToken, String title, String body) {
+    private void sendNotification(String deviceToken, String title, String body, Integer userId) {
     	
     	Notification notification = Notification.builder()
                 .setTitle(title)
@@ -63,8 +65,17 @@ public class NotificationService {
         try {
             String response = FirebaseMessaging.getInstance().send(message);
             System.out.println("Successfully sent message: " + response);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (FirebaseMessagingException e) {
+        	System.out.println("Device token: " + deviceToken);
+            if (e.getMessagingErrorCode() == MessagingErrorCode.UNREGISTERED) {
+            	System.out.println("Token unregistered, removing from database.");
+            	// Remove the invalid token from your database
+            	userService.removeUserDeviceToken(userId);
+            } else {
+                // Handle other exceptions
+            	System.out.println("Failed to send FCM notification");
+            	System.out.println(e);
+            }
         }
     }
 

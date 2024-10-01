@@ -63,12 +63,13 @@ public class TableService {
             }
         	// Adding the iterated conjugation to the current conjugation list
             Pronoun pronoun = conjugation.getPronoun();
-;            currentConjugationList.add(new ConjugationDTO(
+            currentConjugationList.add(new ConjugationDTO(
             							conjugation.getId(), 
             							conjugation.getLabel(), 
             							new PronounDTO(pronoun.getId(), pronoun.getName(), pronoun.getOrder()),
             							conjugation.getTense().getName(),
-            							conjugation.getVerb().getName()));
+            							conjugation.getVerb().getName(),
+            							null));
         }
         
         // Add the last table

@@ -2,6 +2,7 @@ package com.app.conjugation.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -82,6 +83,14 @@ public class UserService {
 		return mapUserToDTO(user);		
 	}
 	
+	public void removeUserDeviceToken(Integer userId) {
+		Optional<User> optionalUser = userRepository.findById(userId);
+		User user = optionalUser.get();
+		user.setDeviceToken(null);
+		userRepository.save(user);
+		System.out.println("Device token from user removed");
+	}
+	
  	private UserDTO mapUserToDTO(User user) {
  		
 		UserDTO userDTO = new UserDTO();
@@ -122,5 +131,7 @@ public class UserService {
  		
  		return user;
  	}
+ 	
+ 	
 	
 }
