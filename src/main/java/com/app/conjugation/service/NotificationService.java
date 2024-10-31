@@ -28,7 +28,7 @@ public class NotificationService {
 	private UserService userService;
 
 //    @Scheduled(cron = "*/10 * * * * *")
-    @Scheduled(cron = "0 0 20 * * *") 
+    @Scheduled(cron = "0 40 12 * * *") 
     public void sendDueNotifications() {
 //        // Fetch due tasks from the database
 //        List<Task> dueTasks = getDueTasks();
@@ -37,13 +37,16 @@ public class NotificationService {
     		   User user = dueBatch.getUser();
     		   System.out.println(user.getEmail() + " - " + user.getId());
     		   String deviceToken = user.getDeviceToken();
+    		   System.out.println("token: " + deviceToken);
     		   String learningLanguage = dueBatch.getUserLearningLanguage().getLearningLanguage().getName();
-    		   sendNotification(
-				   deviceToken, 
-				   "Reminder: Repetition(s) Due Today", 
-				   "Keep up your progress! Complete your repetitions today to reinforce what you've learned.",
-				   user.getId()
-			   );
+    		   if(deviceToken != null) {
+    			   sendNotification(
+					   deviceToken, 
+					   "Reminder: Repetition(s) Due Today", 
+					   "Keep up your progress! Complete your repetitions today to reinforce what you've learned.",
+					   user.getId()
+				   );
+    		   }
     	   }
     }
 
@@ -79,9 +82,4 @@ public class NotificationService {
         }
     }
 
-    private List<Batch> getDueBatches() {
-        
-    	
-        return new ArrayList<>();
-    }
 }
