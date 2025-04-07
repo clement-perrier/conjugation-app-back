@@ -28,27 +28,27 @@ public class NotificationService {
 	private UserService userService;
 
 //    @Scheduled(cron = "*/10 * * * * *")
-    @Scheduled(cron = "0 40 12 * * *") 
-    public void sendDueNotifications() {
-//        // Fetch due tasks from the database
-//        List<Task> dueTasks = getDueTasks();
-    	   List<Batch> dueBatches = batchRepository.findDueBatches();
-    	   for(Batch dueBatch: dueBatches) {
-    		   User user = dueBatch.getUser();
-    		   System.out.println(user.getEmail() + " - " + user.getId());
-    		   String deviceToken = user.getDeviceToken();
-    		   System.out.println("token: " + deviceToken);
-    		   String learningLanguage = dueBatch.getUserLearningLanguage().getLearningLanguage().getName();
-    		   if(deviceToken != null) {
-    			   sendNotification(
-					   deviceToken, 
-					   "Reminder: Repetition(s) Due Today", 
-					   "Keep up your progress! Complete your repetitions today to reinforce what you've learned.",
-					   user.getId()
-				   );
-    		   }
-    	   }
-    }
+//    @Scheduled(cron = "0 40 12 * * *")
+//    public void sendDueNotifications() {
+////        // Fetch due tasks from the database
+////        List<Task> dueTasks = getDueTasks();
+//    	   List<Batch> dueBatches = batchRepository.findDueBatches();
+//    	   for(Batch dueBatch: dueBatches) {
+//    		   User user = dueBatch.getUser();
+//    		   System.out.println(user.getEmail() + " - " + user.getId());
+//    		   String deviceToken = user.getDeviceToken();
+//    		   System.out.println("token: " + deviceToken);
+//    		   String learningLanguage = dueBatch.getUserLearningLanguage().getLearningLanguage().getName();
+//    		   if(deviceToken != null) {
+//    			   sendNotification(
+//					   deviceToken,
+//					   "Reminder: Repetition(s) Due Today",
+//					   "Keep up your progress! Complete your repetitions today to reinforce what you've learned.",
+//					   user.getId()
+//				   );
+//    		   }
+//    	   }
+//    }
 
     private void sendNotification(String deviceToken, String title, String body, Integer userId) {
     	

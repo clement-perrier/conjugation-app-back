@@ -1,6 +1,7 @@
 package com.app.conjugation.configs;
 
 
+import com.app.conjugation.service.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,16 +17,22 @@ import com.app.conjugation.repository.UserRepository;
 @Configuration
 public class ApplicationConfiguration {
 	
-    private final UserRepository userRepository;
+//    private final UserRepository userRepository;
+//
+//    public ApplicationConfiguration(UserRepository userRepository) {
+//        this.userRepository = userRepository;
+//    }
 
-    public ApplicationConfiguration(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+//    @Bean
+//    CustomUserDetailsService userDetailsService() {
+//        return userId -> userRepository.findById(userId)
+//                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+//    }
 
-    @Bean
-    UserDetailsService userDetailsService() {
-        return username -> userRepository.findByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    private final CustomUserDetailsService customUserDetailsService;
+
+    public ApplicationConfiguration(CustomUserDetailsService customUserDetailsService) {
+        this.customUserDetailsService = customUserDetailsService;
     }
 
     @Bean
@@ -42,7 +49,7 @@ public class ApplicationConfiguration {
     AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
 
-        authProvider.setUserDetailsService(userDetailsService());
+        authProvider.setUserDetailsService(customUserDetailsService);
         authProvider.setPasswordEncoder(passwordEncoder());
 
         return authProvider;

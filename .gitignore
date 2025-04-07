@@ -61,7 +61,7 @@ Thumbs.db
 /config/application.properties
 /config/application.yml
 /config/application.yaml
-/src/main/resources/application.properties
+/src/main/resources/application-prod.properties
 /src/main/resources/application.yml
 /src/main/resources/firebase-adminsdk.json
 /src/main/resources/*.json
