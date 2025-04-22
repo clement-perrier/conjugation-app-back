@@ -3,14 +3,11 @@ package com.app.conjugation.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Table(name = "user_learning_language")
@@ -26,42 +23,27 @@ public class UserLearningLanguage {
 		this.setLearningLanguage(learningLanguage);
 	}
 
-	@Id
+	@Setter
+    @Getter
+    @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id") 
 	private Integer id;
 
-	@ManyToOne
+	@Setter
+    @Getter
+    @ManyToOne
     @JoinColumn(name="user_id")
 	@JsonIgnore
 	private User user;
 	
+    @Setter
+    @Getter
     @ManyToOne
     @JoinColumn(name="learning_language_id")
-	private LearningLanguage learningLanguage;	
-	
-    public Integer getId() {
-		return id;
-	}
+	private LearningLanguage learningLanguage;
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+	@OneToMany(mappedBy = "userLearningLanguage", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Batch> batchList;
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public LearningLanguage getLearningLanguage() {
-		return learningLanguage;
-	}
-
-	public void setLearningLanguage(LearningLanguage learningLanguage) {
-		this.learningLanguage = learningLanguage;
-	}
-	
 }

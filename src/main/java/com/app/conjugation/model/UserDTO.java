@@ -4,7 +4,11 @@ package com.app.conjugation.model;
 import java.util.List;
 
 import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 public class UserDTO {
 	
 	public UserDTO() {
@@ -29,45 +33,7 @@ public class UserDTO {
 	private LearningLanguage defaultLearningLanguage;
 	
 	private List<LearningLanguage> learningLanguageList;
-	
-	public Integer getId() {
-		return id;
-	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	
-	public String getDeviceToken() {
-		return deviceToken;
-	}
+	private Boolean isGuest;
 
-	public void setDeviceToken(String fullname) {
-		this.deviceToken = fullname;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public LearningLanguage getDefaultLearningLanguage() {
-		return defaultLearningLanguage;
-	}
-
-	public void setDefaultLearningLanguage(LearningLanguage defaultLearningLanguage) {
-		this.defaultLearningLanguage = defaultLearningLanguage;
-	}
-
-	public List<LearningLanguage> getLearningLanguageList() {
-		return learningLanguageList;
-	}
-
-	public void setLearningLanguageList(List<LearningLanguage> learningLanguageList) {
-		this.learningLanguageList = learningLanguageList;
-	}
-	
 }

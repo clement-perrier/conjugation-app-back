@@ -3,18 +3,11 @@ package com.app.conjugation.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailException;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import com.app.conjugation.exceptions.CustomException;
 import com.app.conjugation.model.ChangePasswordRequestDTO;
 import com.app.conjugation.model.JwtResponseDTO;
 import com.app.conjugation.model.LoginUserDto;
-import com.app.conjugation.model.RefreshToken;
 import com.app.conjugation.model.RefreshTokenRequestDTO;
 import com.app.conjugation.model.RegisterUserDto;
 import com.app.conjugation.model.User;
@@ -26,8 +19,6 @@ import com.app.conjugation.service.ResetCodeService;
 
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
-
-import java.util.Map;
 
 @RequestMapping("/auth")
 @RestController
@@ -77,15 +68,12 @@ public class AuthenticationController {
 
     @PostMapping("/refreshToken")
     public JwtResponseDTO refreshToken(@RequestBody RefreshTokenRequestDTO refreshTokenRequestDTO){
-        return refreshTokenService.findByToken(refreshTokenRequestDTO.getToken())
-                .map(refreshTokenService::verifyExpiration)
-                .map(RefreshToken::getUser)
-                .map(user -> {
-                    String accessToken = jwtService.generateToken(user);
-                    return JwtResponseDTO.builder()
-                            .accessToken(accessToken)
-                            .refreshToken(refreshTokenRequestDTO.getToken()).build();
-                }).orElseThrow(() -> new CustomException("Refresh Token is not in DB..!!"));
+        return refreshTokenService.refreshToken(refreshTokenRequestDTO.getToken());
+    }
+
+    @DeleteMapping("/refreshToken/{refreshToken}")
+    public ResponseEntity<String> deleteRefreshToken(@PathVariable String refreshToken) {
+        return refreshTokenService.deleteRefreshToken(refreshToken);
     }
     
     @PostMapping("/resetPassword")

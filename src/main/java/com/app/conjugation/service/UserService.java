@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.app.conjugation.model.User;
 import com.app.conjugation.model.UserDTO;
@@ -13,8 +15,6 @@ import com.app.conjugation.model.LearningLanguage;
 import com.app.conjugation.repository.LearningLanguageRepository;
 import com.app.conjugation.repository.UserLearningLanguageRepository;
 import com.app.conjugation.repository.UserRepository;
-
-import jakarta.transaction.Transactional;
 
 @Service
 public class UserService {
@@ -29,12 +29,17 @@ public class UserService {
 	private UserLearningLanguageRepository userLearningLanguageRepository;
 	
 	public UserDTO getById(Integer id) {
-		User user = userRepository.findById(id).get();
-		return mapUserToDTO(user);
+		Optional<User> optionalUser = userRepository.findById(id);
+		if (optionalUser.isPresent()) {
+			User user = optionalUser.get();
+			return mapUserToDTO(user);
+		} else {
+			throw new EntityNotFoundException("User not found with id: " + id);
+		}
 	}
 	
 	public UserDTO updateUserLearningLanguageList(Integer userId, Integer newLearningLanguageId) {
-		
+
 		// Retrieving the user we want to update
 		User user = userRepository.findById(userId).get();
 		// Retrieving the language we want to add to the user learning language list
@@ -98,6 +103,7 @@ public class UserService {
 		userDTO.setEmail(user.getEmail());
 		userDTO.setDefaultLearningLanguage(user.getDefaultLearningLanguage());
 		userDTO.setDeviceToken(user.getDeviceToken());
+		userDTO.setIsGuest(user.isGuest());
 		
 		List<LearningLanguage> learningLanguageList = new ArrayList<LearningLanguage>();
 		
@@ -132,6 +138,18 @@ public class UserService {
  		return user;
  	}
  	
- 	
+ 	public ResponseEntity<String> deleteUser(Integer userId) {
+//		Optional<User> optionalUser = userRepository.findById(userId);
+//		if (optionalUser.isPresent()) {
+//			User user = optionalUser.get();
+//			userLearningLanguageRepository.deleteByUser(user);
+//			List<UserLearningLanguage> userLearningLanguageList = userLearningLanguageRepository.findByUser(user);
+//			userLearningLanguageRepository.deleteAllById();
+//		} else {
+//			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found!");
+//		}
+		userRepository.deleteById(userId);
+		return ResponseEntity.ok("User deleted successfully");
+	}
 	
 }

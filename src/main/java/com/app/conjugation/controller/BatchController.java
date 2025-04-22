@@ -35,7 +35,7 @@ public class BatchController {
 	}
 
 	@PostMapping("/newBatch")
-    public BatchDTO createTense(@RequestBody BatchDTO batch) {
+    public BatchDTO createBatch(@RequestBody BatchDTO batch) {
         return  batchService.saveBatch(batch);
     }
 	

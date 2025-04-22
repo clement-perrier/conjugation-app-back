@@ -2,6 +2,7 @@ package com.app.conjugation.repository;
 
 import java.util.Optional;
 
+import com.app.conjugation.model.RefreshToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -11,22 +12,12 @@ import com.app.conjugation.model.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
 	
-	@Query("select u from User u "
-//		       + "left join fetch u.userLearningLanguageList ul "
-//		       + "left join fetch ul.learningLanguage "
-		       + "where u.id = :userId")
+	@Query("select u from User u " + "where u.id = :userId")
 	User findByUserAndLanguage(@Param("userId") Integer userid);
 	
 	Optional<User> findByEmail(String email);
-	
-//	@Query(value = "SELECT b.reviewing_date AS reviewingDate, b.day_number AS dayNumber, bc.batch_id AS batchId, "
-//            + "JSON_ARRAYAGG(JSON_OBJECT('id', c.id, 'label', c.label, 'pronoun', p.name)) AS conjugationList "
-//            + "FROM conjugation c "
-//            + "JOIN batch_conjugation bc ON c.id = bc.conjugation_id "
-//            + "JOIN batch b ON bc.batch_id = b.id "
-//            + "JOIN pronoun p ON c.pronoun_id = p.id "
-//            + "GROUP BY bc.batch_id, b.reviewing_date, b.day_number "
-//            + "ORDER BY b.reviewing_date, b.day_number", nativeQuery = true)
-//	List<Object> findByUserAndLanguage();
+
+	Optional<User> findByRefreshToken(RefreshToken refreshToken);
+
 	
 }
