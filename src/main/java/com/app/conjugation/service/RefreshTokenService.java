@@ -43,7 +43,8 @@ public class RefreshTokenService {
                 return optionalExistingRefreshToken.get();
             } else {
                 // Removing existing User refresh token
-                optionalExistingRefreshToken.ifPresent(refreshTokenRepository::delete);
+                user.setRefreshToken(null);
+                userRepository.save(user);
                 // Build and save User refresh token in DB
                 return generateRefreshToken(user);
             }
