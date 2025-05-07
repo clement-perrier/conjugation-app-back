@@ -1,9 +1,11 @@
 package com.app.conjugation.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.app.conjugation.model.BatchConjugation;
@@ -14,7 +16,15 @@ public interface BatchConjugationRepository extends JpaRepository<BatchConjugati
 	@Query("select bc "
 			+ "from BatchConjugation bc")
 	List<BatchConjugation> findAll();
-	
+
+//	@Query("select bc " +
+//			"from BatchConjugation bc" +
+//			"where bc.batch.id = :batchId " +
+//			"and bc.conjugation.id = :conjugationId")
+//	Optional<BatchConjugation> findByBatchAndConjugation(Integer batchId, Integer conjugationId);
+	Optional<BatchConjugation> findByBatch_IdAndConjugation_Id(Integer batchId, Integer conjugationId);
+
+
 //	@Query("select bc "
 //			+ "from BatchConjugation bc "
 //			+ "where bc.conjugation.language.id = :languageId "

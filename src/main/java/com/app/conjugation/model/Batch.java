@@ -1,6 +1,7 @@
 package com.app.conjugation.model;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -23,7 +24,7 @@ public class Batch {
 	
 	public Batch() {}
 
-	public Batch(Integer id, Integer dayNumber, Instant reviewingDate, UserLearningLanguage userLearningLanguage){
+	public Batch(Integer id, Integer dayNumber, LocalDate reviewingDate, UserLearningLanguage userLearningLanguage){
 		this.id = id;
 		this.setDayNumber(dayNumber);
 		this.setReviewingDate(reviewingDate);
@@ -37,7 +38,7 @@ public class Batch {
 	private Integer dayNumber;
 	
 //	@Temporal(TemporalType.DATE)
-	private Instant reviewingDate;
+	private LocalDate reviewingDate;
 	
 	@ManyToOne
     @JoinColumn(name="user_learning_language_id")

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.app.conjugation.repository.ConjugationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.app.conjugation.model.Batch;
@@ -27,6 +28,8 @@ import com.app.conjugation.repository.UserLearningLanguageRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 
+import javax.swing.text.html.Option;
+
 @Service
 @Transactional
 public class BatchService {
@@ -39,7 +42,10 @@ public class BatchService {
 	
 	@Autowired
 	private UserLearningLanguageRepository userLearningLanguageRepository;
-	
+
+	@Autowired
+	private ConjugationRepository conjugationRepository;
+
 	@Autowired
 	private TableService tableService;
 	
@@ -82,30 +88,33 @@ public class BatchService {
 		
 		// Inserting Batch record
 		Batch newBatch = mapBatchDTOToEntity(batchDTO);
-		batchRepository.save(newBatch);
-		
+		newBatch.setBatchConjugationList(new ArrayList<>());
+
 		// Inserting Batch Conjugation records
 		for(TableDTO table : batchDTO.getTableList()) {
-			
+
 			for(ConjugationDTO conjugationDTO : table.getConjugationList()) {
-				
-				// Create and set BatchConjugation entity
-                BatchConjugation newBatchConjugation = new BatchConjugation();
-                newBatchConjugation.setBatch(newBatch);
 
                 // Map ConjugationDTO to Conjugation entity
-                Conjugation newConjugation = mapConjugationDTOToEntity(conjugationDTO, table);
+				// Conjugation newConjugation = mapConjugationDTOToEntity(conjugationDTO, table);
+				Conjugation conjugation = conjugationRepository.findById(conjugationDTO.getId())
+						.orElseThrow(() -> new RuntimeException("Conjugation not found"));
 
-                // Set the conjugation entity to BatchConjugation
-                newBatchConjugation.setConjugation(newConjugation);
+				// Create BatchConjugation and set relationships
+				BatchConjugation batchConjugation = new BatchConjugation();
+				batchConjugation.setBatch(newBatch);
+				batchConjugation.setConjugation(conjugation);
 
-                // Save BatchConjugation record
-                batchConjugationRepository.save(newBatchConjugation);
-				
+				newBatch.getBatchConjugationList().add(batchConjugation);
+
+				//  batchConjugationRepository.save(newBatchConjugation);
+
 			}
-			
+
 		}
-		
+
+		batchRepository.save(newBatch);
+
 		batchDTO.setId(newBatch.getId());
 		
 		return batchDTO;
@@ -114,37 +123,58 @@ public class BatchService {
 	
 	@Transactional
 	public Integer updateBatch(BatchDTO batchDTO) {
+
 	    // Fetch existing Batch record
-	    Optional<Batch> existingBatchOptional = batchRepository.findById(batchDTO.getId());
-	    if (!existingBatchOptional.isPresent()) {
-	        throw new EntityNotFoundException("Batch not found with ID: " + batchDTO.getId());
-	    }
-	    
-	    // Get actual batch from optional
-	    Batch existingBatch = existingBatchOptional.get();
-	    
+		Batch batch = batchRepository.findById(batchDTO.getId()).orElseThrow();
+
 	    // Update attributes of the existing Batch entity
-	    existingBatch.setDayNumber(batchDTO.getDayNumber());
-	    existingBatch.setReviewingDate(batchDTO.getReviewingDate());
+	    batch.setDayNumber(batchDTO.getDayNumber());
+	    batch.setReviewingDate(batchDTO.getReviewingDate());
+		// Getting new BatchConjugation list from updated batch
+		List<BatchConjugation> newBatchConjugationList = getBatchConjugationListFromBatchDTO(batchDTO);
+		// Updating batch BatchConjugation list so JPA is aware
+		batch.getBatchConjugationList().clear();
+		batch.getBatchConjugationList().addAll(newBatchConjugationList);
 
 	    // Save updated Batch record
-	    batchRepository.save(existingBatch);
+	    batchRepository.save(batch);
 
-	    return existingBatch.getId();
+	    return batch.getId();
 	}
 
 	public Integer deleteBatch(Integer batchId) {
-		
-		Batch batch = batchRepository.findById(batchId).get();
-		batchRepository.delete(batch);
-		// TODO Auto-generated method stub
+		Optional<Batch> optionalBatch = batchRepository.findById(batchId);
+        optionalBatch.ifPresent(batch -> batchRepository.delete(batch));
 		return batchId;
 	}
-    
+
+	public List<BatchConjugation> getBatchConjugationListFromBatchDTO(BatchDTO batchDTO) {
+		Integer batchId = batchDTO.getId();
+
+
+		List<BatchConjugation> batchConjugationList = new ArrayList<BatchConjugation>();
+		List<TableDTO> tableList = batchDTO.getTableList();
+		for (TableDTO table: tableList) {
+			List<ConjugationDTO> conjugationList = table.getConjugationList();
+			for (ConjugationDTO conjugation: conjugationList) {
+				Optional<BatchConjugation> optionalBatchConjugation = batchConjugationRepository.findByBatch_IdAndConjugation_Id(batchId, conjugation.getId());
+				optionalBatchConjugation.ifPresent(batchConjugationList::add);
+			}
+		}
+
+		return batchDTO.getTableList().stream()
+				.flatMap(table -> table.getConjugationList().stream())
+				.map(conjugationDTO ->
+						batchConjugationRepository.findByBatch_IdAndConjugation_Id(batchId, conjugationDTO.getId()))
+				.filter(Optional::isPresent)
+				.map(Optional::get)
+				.collect(Collectors.toList());
+	}
 	
 	private Batch mapBatchDTOToEntity(BatchDTO batchDTO) {
 		
         Batch batch = new Batch();
+		if (batchDTO.getId() != null) { batch.setId(batchDTO.getId()); }
         batch.setDayNumber(batchDTO.getDayNumber());
         batch.setReviewingDate(batchDTO.getReviewingDate());
         
@@ -152,6 +182,9 @@ public class BatchService {
 		Integer learningLanguageId = batchDTO.getUserLearningLanguage().getLearningLanguageId();
 		UserLearningLanguage userLearningLanguage = userLearningLanguageRepository.findByUserIdAndLearningLanguageId(userId, learningLanguageId);
         batch.setUserLearningLanguage(userLearningLanguage);
+
+//		List<BatchConjugation> batchConjugationList = getBatchConjugationListFromBatchDTO(batchDTO);
+//		batch.setBatchConjugationList(batchConjugationList);
         
         return batch;
         

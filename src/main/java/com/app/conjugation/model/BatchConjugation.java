@@ -18,8 +18,7 @@ public class BatchConjugation {
 		
 	}
 	
-	public BatchConjugation(Integer id, Batch batch, Conjugation conjugation){
-		this.id = id;
+	public BatchConjugation(Batch batch, Conjugation conjugation){
 		this.setBatch(batch);
 		this.setConjugation(conjugation);
 	}

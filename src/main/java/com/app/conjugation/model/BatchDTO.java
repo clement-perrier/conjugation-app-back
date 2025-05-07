@@ -3,13 +3,15 @@ package com.app.conjugation.model;
 import lombok.Getter;
 import lombok.Setter;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BatchDTO {
 	
 	public BatchDTO() {}
 	
-	public BatchDTO(Integer id, Integer dayNumber, Instant reviewingDate, List<TableDTO> tableList, UserLearningLanguageDTO userLearningLanguageDTO){
+	public BatchDTO(Integer id, Integer dayNumber, LocalDate reviewingDate, List<TableDTO> tableList, UserLearningLanguageDTO userLearningLanguageDTO){
 		this.setId(id);
 		this.setDayNumber(dayNumber);
 		this.setReviewingDate(reviewingDate);
@@ -27,7 +29,7 @@ public class BatchDTO {
 	
 	@Setter
     @Getter
-    private Instant reviewingDate;
+    private LocalDate reviewingDate;
 	
 	private UserLearningLanguageDTO userLearningLanguageDTO;
 	
