@@ -79,9 +79,9 @@ public class AuthenticationController {
     @PostMapping("/resetPassword")
     public ResponseEntity<String> resetPassword(HttpServletRequest request, @RequestParam("email") String email) throws MailException, MessagingException {
         
-    	passwordResetService.resetPassword(request, email);
+    	String response = passwordResetService.resetPassword(request, email);
         
-        return ResponseEntity.ok("If an account with that email exists, a password reset link has been processed.");
+        return ResponseEntity.ok(response);
     }
     
     @PostMapping("/changePassword")

@@ -7,6 +7,7 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.app.conjugation.exceptions.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.mail.MailException;
@@ -47,8 +48,8 @@ public class PasswordResetService {
 	@Autowired
 	private ResetCodeService resetCodeService;
 
-	@Autowired
-	private EmailService emailService;
+//	@Autowired
+//	private EmailService emailService;
 
 	@Autowired
 	private JavaMailSender mailSender;
@@ -59,36 +60,37 @@ public class PasswordResetService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	public void resetPassword(HttpServletRequest request, String email) throws MailException, MessagingException {
+	@Autowired
+	private SesEmailService emailService;
+
+	public String resetPassword(HttpServletRequest request, String to) throws MailException, MessagingException {
 		
-		Optional<User> optionalUser = userRepository.findByEmail(email);
-		if (!optionalUser.isPresent()) {
-			throw new UserNotFoundException("User with email " + email + " not found");
+		Optional<User> optionalUser = userRepository.findByEmail(to);
+		if (optionalUser.isEmpty()) {
+			throw new UserNotFoundException("User with email " + to + " not found");
 		}
 		
 		User user = optionalUser.get();
 		
-		String code = resetCodeService.generateUniqueCode(user);
-//		
-//		Optional<PasswordResetToken> optionalToken = passwordTokenRepository.findByUser(user);
-//		
-//		String token = "";
-//		
-//		// If token already exist and not expired => returning existing token
-//		if(optionalToken.isPresent() && !isTokenExpired(optionalToken.get())) {
-//			token = optionalToken.get().getToken();
-//		} else {
-//			// Token exist but is expired => removing the token from DB
-//			if(isTokenExpired(optionalToken.get())) {
-//				passwordTokenRepository.delete(optionalToken.get());
-//			}
-//			// New token generated
-//			token = UUID.randomUUID().toString();
-//			createPasswordResetTokenForUser(user, token);
-//		}
+		String verificationCode = resetCodeService.generateUniqueCode(user);
+
+		// Setup email
+		String from = "noreply@conjugation.crcbp.com"; // Make sure this is verified in SES
+		String subject = "Your Conjugation App Verification Code";
+		String body = "Hello,\n\n"
+				+ "Your verification code is: " + verificationCode + "\n\n"
+				+ "Enter this code in the Conjugation App to complete your request.\n\n"
+				+ "If you didn’t request this, you can safely ignore this email.\n\n"
+				+ "Thank you,\n"
+				+ "The Conjugation App Team";
 
 		// Sending email
-		mailSender.send(constructResetTokenEmail(getAppUrl(request), request.getLocale(), code, email));
+		try {
+			emailService.sendEmail(to, from, subject, body);
+			return "Email sent to " + to;
+		} catch (Exception e) {
+			throw new CustomException("Failed to send email: " + e.getMessage());
+		}
 
 	}
 	
