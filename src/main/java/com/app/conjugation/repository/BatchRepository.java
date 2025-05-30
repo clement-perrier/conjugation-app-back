@@ -32,7 +32,30 @@ public interface BatchRepository extends JpaRepository<Batch, Integer> {
 			+ "WHERE b2.reviewingDate <= current_date "
 			+ "GROUP BY b2.userLearningLanguage)")
 	List<Batch> findDueBatches();
-	
+
+	@Query(value = """
+        SELECT DISTINCT u.email as userEmail, u.device_token AS deviceToken,
+                        ll.name AS languageName
+        FROM user u
+        JOIN user_learning_language ull ON ull.user_id = u.id
+        JOIN learning_language ll ON ull.learning_language_id = ll.id
+        JOIN batch b ON b.user_learning_language_id = ull.id
+        WHERE b.reviewing_date <= CURRENT_DATE
+          AND b.reviewing_date IN (
+              SELECT MIN(b2.reviewing_date)
+              FROM batch b2
+              WHERE b2.reviewing_date <= CURRENT_DATE
+              GROUP BY b2.user_learning_language_id
+          )
+        """, nativeQuery = true)
+	List<UserLanguageInfo> findUserDeviceTokenAndLanguageNameForDueBatches();
+
+	public static interface UserLanguageInfo {
+		String getUserEmail();
+		String getDeviceToken();
+		String getLanguageName();
+	}
+
 //	@Query(value = "SELECT b.reviewing_date AS reviewingDate, b.day_number AS dayNumber, bc.batch_id AS batchId, "
 //            + "JSON_ARRAYAGG(JSON_OBJECT('id', c.id, 'label', c.label, 'pronoun', p.name)) AS conjugationList "
 //            + "FROM conjugation c "

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.app.conjugation.exceptions.UserNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -74,18 +75,22 @@ public class UserService {
 	}
 	
 	public UserDTO updateDeviceToken(Integer userId, String deviceToken) {
-		
+
 		// Retrieving the user we want to update
-		User user = userRepository.findById(userId).get();
-		
-		// Setting newe device token
-		user.setDeviceToken(deviceToken);
-		
-		// Updating the user in the DB
-		userRepository.save(user);
-		
-		// Returning the updated User as UserDTO
-		return mapUserToDTO(user);		
+		Optional<User> optionalUser = userRepository.findById(userId);
+		if (optionalUser.isPresent()) {
+			User user = optionalUser.get();
+			// Setting new device token
+			user.setDeviceToken(deviceToken);
+			// Updating the user in the DB
+			userRepository.save(user);
+			// Returning the updated User as UserDTO
+			return mapUserToDTO(user);
+		} else {
+			// Handle the case when the user is not found, e.g., throw an exception or return null
+			throw new UserNotFoundException("User with ID " + userId + " not found.");
+		}
+
 	}
 	
 	public void removeUserDeviceToken(Integer userId) {
